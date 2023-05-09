@@ -1,0 +1,325 @@
+.ant-btn:hover {
+  color: #ffffff !important;
+}
+.amazonlogo {
+  text-align: center;
+}
+
+/* Signup Form */
+
+.signup-form {
+  width: 20%;
+  border: 1px solid grey;
+  border-radius: 3%;
+  padding: 25px;
+}
+.form1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.condition {
+  font-size: 15px;
+}
+.register-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cntn-btn {
+  width: 100%;
+  margin-bottom: 18px;
+  background-color: #32373c;
+  color: #ffffff;
+}
+.cntn-btn:hover {
+  background-color: #292d32;
+}
+.signin-link {
+  text-decoration: none;
+}
+.signin-link:hover {
+  color: #ed8b0a;
+  text-decoration: underline;
+}
+.policy {
+  font-size: 14px;
+}
+.footer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.footer-link {
+  margin-right: 10px;
+  text-decoration: none;
+}
+.footer-link:hover {
+  text-decoration: underline;
+  color: #ed8b0a;
+}
+.footer-title {
+  margin-top: 20px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+/* Sign-in Form */
+
+.signin-cntn-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #32373c;
+  color: #ffffff;
+}
+
+.signin-form {
+  width: 20%;
+  border: 1px solid grey;
+  border-radius: 3%;
+  padding: 35px 25px 25px;
+}
+.form2 {
+  display: flex;
+  justify-content: center;
+}
+.title {
+  font-size: 2em;
+  text-align: center;
+  font-weight: 500;
+}
+.signin-label {
+  font-weight: bold;
+}
+.divider-break {
+  text-align: center;
+}
+.terms {
+  font-size: 14px;
+}
+.create-btn {
+  padding: 10px 75px;
+  display: flex;
+  background-color: #1280ee;
+  color: #ffffff;
+  align-items: center;
+}
+
+.account-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header*/
+
+.header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid grey;
+  position: fixed;
+  width: 100%;
+  background-color: #fefbf3;
+  top: 0;
+  z-index: 1;
+}
+.shop-link {
+  color: black;
+}
+
+.itemnumber {
+  background: black;
+  border: 1px solid grey;
+  color: white;
+  text-align: center;
+  position: absolute;
+  right: 31%;
+  height: 19px;
+  border-radius: 50%;
+  width: 20px;
+}
+
+/* Products   */
+
+.product-img {
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  height: 270px;
+}
+.cards {
+  margin: 100px 0 0 0 !important;
+}
+.card-span {
+  font-size: 18px;
+  font-weight: bolder;
+}
+.spinner {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-cart-btn {
+  background-color: #32373c;
+  color: #fff;
+}
+
+/* FooterComp */
+
+.footer-div {
+  background-color: #232f3e;
+  color: white;
+  height: 380px;
+}
+
+.foooter-row {
+  background-color: #232f3e;
+  color: white;
+  height: 300px;
+  padding-top: 50px;
+  margin-top: 50px;
+}
+.amazon-title {
+  font-size: 20px;
+  margin: 20px 0px;
+}
+
+.social-link {
+  color: white;
+}
+
+.social-icon {
+  font-size: 30px;
+}
+
+.quick {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.quick-links {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.order {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.order-info {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.newsletter {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.letter {
+  padding-bottom: 78px;
+}
+
+/* Cart  */
+
+.cartproducts {
+  margin-top: 100px;
+}
+.cart-title {
+  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-family: Cinzel;
+}
+
+.empty-cart {
+  width: 650px;
+}
+.empty-content {
+  display: flex;
+  justify-content: space-between;
+}
+.shop-now-btn {
+  background-color: #faeb24;
+}
+.shop-now-btn:hover {
+  color: black !important;
+}
+.cart-row{
+  width: 900px;
+}
+.cartitem {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid grey;
+  height: 130px;
+}
+.delete-icon {
+  font-size: 20px;
+}
+
+.cart-total {
+  text-align: center;
+}
+.buy-btn {
+  padding: 22px 50px;
+  background: grey;
+  color: white;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+}
+.buy-btn-div {
+  display: flex;
+  justify-content: center;
+}
+
+/* Billing Details... */
+
+.bill {
+  margin-top: 100px;
+}
+
+.bill-details {
+  font-family: Cinzel;
+  text-align: center;
+  width: 800px;
+  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-weight: 400;
+}
+.billing-form {
+  margin: auto;
+  width: 544px;
+}
+.order-details {
+  font-family: Cinzel;
+  width: 800px;
+  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-weight: 400;
+}
+.bill-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-total {
+  font-size: 20px;
+  font-weight: bolder;
+}
+.order-btn-div {
+  display: flex;
+  justify-content: center;
+}
+.order-btn {
+  background-color: #32373c;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 20px 40px;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+}
