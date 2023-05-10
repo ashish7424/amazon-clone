@@ -1,22 +1,70 @@
-import { Button, Card, Col, Rate, Row } from "antd";
+import { Button, Card, Col, Dropdown, Rate, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCart } from "../Store/CartSlice";
 import { TailSpin } from "react-loader-spinner";
+import { DownOutlined } from "@ant-design/icons";
 
 function Products() {
+  const items = [
+    {
+      label: "All",
+      key: "all",
+    },
+    {
+      label: "Electronics",
+      key: "electronics",
+    },
+    {
+      label: "Jewelery",
+      key: "jewelery",
+    },
+    {
+      label: "Men's Clothing",
+      key: "men's clothing",
+    },
+    {
+      label: "Women's Clothing",
+      key: "women's clothing",
+    },
+  ];
+
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState("");
 
   useEffect(() => {
     getProducts();
   }, []);
 
+  const onClick = async ({ key }) => {
+    setData(key);
+    if (key === "all") {
+      setLoading(true);
+      await fetch("https://fakestoreapi.com/products").then((res) => {
+        res.json().then((result) => {
+          setProducts(result);
+        });
+        setLoading(false);
+      });
+    } else {
+      setLoading(true);
+      await fetch(`https://fakestoreapi.com/products/category/${key}`).then(
+        (res) => {
+          res.json().then((result) => {
+            setProducts(result);
+          });
+        }
+      );
+      setLoading(false);
+    }
+  };
   const getProducts = async () => {
     setLoading(true);
     await fetch("https://fakestoreapi.com/products").then((res) => {
       res.json().then((result) => {
+        console.log(result);
         setProducts(result);
       });
     });
@@ -28,12 +76,41 @@ function Products() {
   };
   return (
     <div>
+      <div style={{ margin: "100px 0 0 50px" }}>
+        <Dropdown
+          menu={{
+            items,
+            onClick,
+          }}
+          trigger={["click"]}
+        >
+          <Button
+            // onClick={(e) => e.preventDefault()}
+            className="categories-btn"
+            style={{ textTransform: "capitalize" }}
+          >
+            {data || "Categories"}
+            <DownOutlined />
+          </Button>
+        </Dropdown>
+      </div>
+
+      {data !== "" ||
+        (data !== "all" && (
+          <div>
+            <label className="dropdown-key">{data}</label>
+            <p className="result">
+              Showing {products?.length} Results :({data})
+            </p>
+          </div>
+        ))}
+
       {loading ? (
         <div className="spinner">
           <TailSpin />
         </div>
       ) : (
-        <Row gutter={[20, 20]} className="cards" >
+        <Row gutter={[20, 20]} className="cards">
           {products.map((item, index) => {
             return (
               <Col key={index} xl={6} xxl={6} sm={12} lg={6} xs={12}>
@@ -49,16 +126,12 @@ function Products() {
                   }
                 >
                   <Col>
-                    <span className="card-span">
-                      Category:
-                    </span>
-                    {item.category}
+                    <span className="card-span">Category:</span>
+                    {item?.category}
                   </Col>
                   <Col>
-                    <span className="card-span">
-                      Price:
-                    </span>
-                    {item.price} ₹
+                    <span className="card-span">Price:</span>
+                    {item?.price ||"0"} ₹
                   </Col>
                   <Col>
                     <Rate allowHalf defaultValue={item.rating.rate} disabled />
@@ -66,7 +139,12 @@ function Products() {
                   </Col>
                   <Col>(Reviews:{item.rating.count})</Col>
                   <br />
-                  <Button onClick={() => addcart(item)} className="add-cart-btn">Add to Cart</Button>
+                  <Button
+                    onClick={() => addcart(item)}
+                    className="add-cart-btn"
+                  >
+                    Add to Cart
+                  </Button>
                 </Card>
               </Col>
             );
