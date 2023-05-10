@@ -13,5 +13,7 @@ const store = configureStore({
   reducer: {
     Cart: persistedreducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 export default store;
