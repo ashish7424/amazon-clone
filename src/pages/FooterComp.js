@@ -17,7 +17,7 @@ function FooterComp() {
           <Col className="amazon-col">
             <img src={amazon} alt="amazon-logo" height={60} width={120} />
             <Col className="amazon-title">
-              High-quality Products that are both beautiful
+              High-quality products that are both beautiful
               <br /> and meaningful.
             </Col>
             <Col>

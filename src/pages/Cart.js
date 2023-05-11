@@ -65,7 +65,7 @@ function Cart() {
                     <span style={{ fontSize: "18px", fontWeight: "bolder" }}>
                       Price:
                     </span>
-                     ₹ {item.price}
+                    ₹ {item.price}
                   </Col>
                   <Col>
                     <DeleteOutlined
@@ -105,7 +105,7 @@ function Cart() {
             <div className="buy-btn-div">
               <Button className="buy-btn" onClick={proceedToBuy}>
                 Proceed to Buy ({items.length}
-                {items.length === 1 ? "item" : "items"})
+                {items.length === 1 ? " item" : " items"})
               </Button>
             </div>
           </div>
