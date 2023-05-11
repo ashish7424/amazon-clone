@@ -4,8 +4,10 @@ import { useLocation } from "react-router";
 
 function BillingDetails() {
   const location = useLocation();
+  const [form] = Form.useForm();
   console.log(location);
   const arr = location.state.data;
+  console.log("arr", arr);
   const columns = [
     {
       title: "Product",
@@ -21,6 +23,7 @@ function BillingDetails() {
   const { Option } = Select;
   const onplaceorder = (values) => {
     console.log("values", values);
+    form.resetFields();
   };
   return (
     <div className="bill">
@@ -28,7 +31,7 @@ function BillingDetails() {
       <br />
       <br />
       <div className="billing-form">
-        <Form onFinish={onplaceorder}>
+        <Form onFinish={onplaceorder} form={form}>
           <Row>
             <Col>
               <Form.Item
@@ -63,24 +66,24 @@ function BillingDetails() {
             label="Street address"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="enter your address" />
           </Form.Item>
           <Form.Item
             name="city"
             label="Town / City"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="enter your city" />
           </Form.Item>
           <Form.Item name="state " label="State " rules={[{ required: true }]}>
-            <Input />
+            <Input placeholder="enter your state" />
           </Form.Item>
           <Form.Item
             name="pincode "
             label="Postcode / ZIP "
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="enter your pincode" />
           </Form.Item>
 
           <Form.Item
@@ -108,7 +111,7 @@ function BillingDetails() {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="enter your email" />
           </Form.Item>
           <div className="order-details">Your Order :</div>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -117,6 +120,7 @@ function BillingDetails() {
                 columns={columns}
                 dataSource={arr}
                 pagination={false}
+                rowKey={(record) => record.id}
                 bordered
                 footer={() => (
                   <div className="bill-total">

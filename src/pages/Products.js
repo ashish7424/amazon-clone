@@ -95,15 +95,16 @@ function Products() {
         </Dropdown>
       </div>
 
-      {data !== "" ||
-        (data !== "all" && (
-          <div>
-            <label className="dropdown-key">{data}</label>
-            <p className="result">
-              Showing {products?.length} Results :({data})
-            </p>
-          </div>
-        ))}
+      {data !== "all" && data !== "" ? (
+        <div>
+          <label className="dropdown-key">{data}</label>
+          <p className="result">
+            Showing {products?.length} Results :({data})
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
 
       {loading ? (
         <div className="spinner">
@@ -126,18 +127,18 @@ function Products() {
                   }
                 >
                   <Col>
-                    <span className="card-span">Category:</span>
+                    <span className="card-span">Category : </span>
                     {item?.category}
                   </Col>
                   <Col>
-                    <span className="card-span">Price:</span>
-                    {item?.price ||"0"} ₹
+                    <span className="card-span">Price : </span>
+                    {item?.price || "0"} ₹
                   </Col>
                   <Col>
                     <Rate allowHalf defaultValue={item.rating.rate} disabled />
-                    {item.rating.rate}
+                     {item.rating.rate}
                   </Col>
-                  <Col>(Reviews:{item.rating.count})</Col>
+                  <Col>(Reviews : {item.rating.count})</Col>
                   <br />
                   <Button
                     onClick={() => addcart(item)}

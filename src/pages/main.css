@@ -125,13 +125,14 @@
 /* FooterComp */
 
 .footer-div {
-  background-color: #27384c;
+  /* background-color: #27384c; */
+  background-color: #16120f;
   color: white;
   height: 380px;
 }
 
 .foooter-row {
-  background-color: #27384c;
+  background-color:#16120f;
   color: white;
   height: 300px;
   padding-top: 50px;
