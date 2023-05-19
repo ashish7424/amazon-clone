@@ -1,11 +1,11 @@
-import { Button, Col, Row } from "antd";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./main.css";
+import React from "react";
+import { Button, Col, Row } from "antd";
+import cartitem from "../PNG/cartimg.svg";
+import { useNavigate } from "react-router";
 import { removeCart } from "../Store/CartSlice";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router";
-import cartitem from "../PNG/cartimg.svg";
+import { useDispatch, useSelector } from "react-redux";
 
 function Cart() {
   const navigate = useNavigate();

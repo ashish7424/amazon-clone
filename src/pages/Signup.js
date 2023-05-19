@@ -1,24 +1,26 @@
-import React from "react";
-import amazon from "../PNG/Amazon logo.png";
-import { Button, Form, Input, Typography } from "antd";
 import "./main.css";
+import React from "react";
+import { toast } from "react-toastify";
+import { auth } from "../Firebase/Firebase";
+import amazon from "../PNG/Amazon logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, Input, Typography } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
-import { toast } from "react-toastify";
+
 const { Title } = Typography;
 
 function Signup() {
   const navigate = useNavigate();
+  
   const register = async (values) => {
     console.log("object", values);
     await createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
-        console.log("object", userCredential);
         const user = userCredential.user;
         console.log("User", user.uid);
         toast.success("Register Successfully");
+        
         navigate("/signin");
       })
       .catch((error) => toast.error("User Already Exist"));
@@ -57,10 +59,11 @@ function Signup() {
             </Form.Item>
             <Form.Item
               name="email"
-              label="Email(Optional)"
+              label="Email"
               rules={[
                 {
                   type: "email",
+                  required:true,
                   message: "The input is not valid E-mail!",
                 },
               ]}
@@ -106,9 +109,9 @@ function Signup() {
         </div>
       </div>
       <div className="footer">
-        <Link className="footer-link">Conditions of Use</Link>
-        <Link className="footer-link">Privacy Notice</Link>
-        <Link className="footer-link">Help</Link>
+        <Link className="footer-link" to="/condition">Conditions of Use</Link>
+        <Link className="footer-link" to="/privacy">Privacy Notice</Link>
+        <Link className="footer-link" to="/help">Help</Link>
       </div>
       <div className="footer-title">
         © 1996-2023, Amazon.com, Inc. or its affiliates

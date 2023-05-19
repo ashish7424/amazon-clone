@@ -1,13 +1,12 @@
-import { Button, Col, Form, Input, Row, Select, Table } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
+import { Button, Col, Form, Input, Row, Select, Table } from "antd";
 
 function BillingDetails() {
   const location = useLocation();
   const [form] = Form.useForm();
-  console.log(location);
-  const arr = location.state.data;
-  console.log("arr", arr);
+  const item = useSelector((state) => state.Cart.userCart);
   const columns = [
     {
       title: "Product",
@@ -58,7 +57,7 @@ function BillingDetails() {
             rules={[{ required: true }]}
           >
             <Select placeholder="Select Your Role" allowClear>
-              <Option value="admin">India</Option>
+              <Option value="india">India</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -113,12 +112,13 @@ function BillingDetails() {
           >
             <Input placeholder="enter your email" />
           </Form.Item>
+          <br />
           <div className="order-details">Your Order :</div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ width: "500px" }}>
               <Table
                 columns={columns}
-                dataSource={arr}
+                dataSource={item}
                 pagination={false}
                 rowKey={(record) => record.id}
                 bordered

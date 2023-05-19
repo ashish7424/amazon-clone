@@ -1,14 +1,18 @@
-import React from "react";
-import amazon from "../PNG/Amazon logo.png";
 import "./main.css";
-import { Button, Form, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
+import React from "react";
 import { toast } from "react-toastify";
+import { useDispatch} from "react-redux";
+import { Button, Form, Input } from "antd";
+import amazon from "../PNG/Amazon logo.png";
+import { auth } from "../Firebase/Firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { setData, setIsLogin } from "../Store/CartSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Signin() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const LoggedIn = useSelector((state) => state.Cart.isLogin);
   const Signup = () => {
     navigate("/signup");
   };
@@ -19,6 +23,8 @@ function Signin() {
       .then((userCredential) => {
         if (userCredential) {
           toast.success("Login Successfully");
+          dispatch(setIsLogin(true));
+          dispatch(setData(values))
           navigate("/");
         }
       })
@@ -35,11 +41,7 @@ function Signin() {
       <div className="form2">
         <div className="signin-form">
           <Form onFinish={onlogin}>
-            <Form.Item
-              className="signin-label"
-              label="Email"
-              name="email"
-            >
+            <Form.Item className="signin-label" label="Email" name="email">
               <Input />
             </Form.Item>
             <br />
@@ -72,9 +74,9 @@ function Signin() {
         </Button>
       </div>
       <div className="footer">
-        <Link className="footer-link">Conditions of Use</Link>
-        <Link className="footer-link">Privacy Notice</Link>
-        <Link className="footer-link">Help</Link>
+        <Link className="footer-link" to="/condition">Conditions of Use</Link>
+        <Link className="footer-link" to="/privacy">Privacy Notice</Link>
+        <Link className="footer-link"to="/help">Help</Link>
       </div>
       <div className="footer-title">
         © 1996-2023, Amazon.com, Inc. or its affiliates

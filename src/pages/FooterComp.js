@@ -1,13 +1,13 @@
-import { Col, Row } from "antd";
+import "./main.css";
 import React from "react";
+import { Col, Row } from "antd";
+import { Link } from "react-router-dom";
 import amazon from "../PNG/amazon-removebg-preview.png";
 import {
   FacebookOutlined,
   InstagramOutlined,
   WhatsAppOutlined,
 } from "@ant-design/icons";
-import "./main.css";
-import { Link } from "react-router-dom";
 
 function FooterComp() {
   return (
