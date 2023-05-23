@@ -1,7 +1,8 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
- //amazon clone 
+//amazon clone
 const firebaseConfig = {
   apiKey: "AIzaSyDELnm94qjMLXRF71GZCx6mTaUEVi5GSZ8",
   authDomain: "clone-a68e5.firebaseapp.com",
@@ -12,4 +13,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
- export const auth = getAuth(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
