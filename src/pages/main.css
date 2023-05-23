@@ -69,6 +69,8 @@
 }
 .shop-now-btn {
   background-color: #faeb24;
+  margin-right: 10px;
+  font-weight: 800;
 }
 .shop-now-btn:hover {
   color: black !important;
@@ -209,6 +211,69 @@
   border-radius: 50%;
   width: 20px;
 }
+/* My Account */
+.account {
+  font-family: Cinzel;
+  text-align: center;
+  width: 800px;
+  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-weight: 400;
+}
+.myaccount-div {
+  margin-top: 100px;
+}
+.myaccount-box {
+  width: 500px;
+  border: 2px solid grey;
+  border-radius: 20px;
+}
+.account-img {
+  padding-top: 15px;
+  text-align: center;
+}
+
+.account-details {
+  width: 500px;
+  border-bottom: 2px solid grey;
+  padding: 15px 15px;
+}
+.account-last-col {
+  width: 500px;
+  padding: 15px 15px;
+}
+.account-row {
+  width: 300px;
+  padding: 15px 0;
+}
+.account-col {
+  font-size: 18px;
+  line-height: 35px;
+  font-weight: 700;
+}
+.account-subcol {
+  text-transform: capitalize;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+.account--col {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+.edit-col {
+  display: flex;
+  align-items: center;
+}
+.edit-icon {
+  font-size: 20px;
+}
+.edit-icon:hover {
+  cursor: pointer;
+}
+.savechanges:hover {
+  color: #16120f !important;
+}
 
 /* Products   */
 
@@ -216,7 +281,7 @@
   display: flex;
   justify-content: center;
   width: 250px;
-  height: 400px;
+  height: 300px;
 }
 .cards {
   margin: 50px 0 0 0 !important;

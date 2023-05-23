@@ -4,8 +4,8 @@ const CartSlice = createSlice({
   name: "userCart",
   initialState: {
     userCart: [],
-    data: {},
     isLogin: false,
+    userDetails: {},
   },
   reducers: {
     addCart: (state, action) => {
@@ -17,10 +17,11 @@ const CartSlice = createSlice({
     setIsLogin: (state, action) => {
       state.isLogin = action.payload;
     },
-    setData: (state, action) => {
-      state.data = action.payload;
+    setuserDetails: (state, action) => {
+      state.userDetails = action.payload;
     },
   },
 });
-export const { addCart, removeCart, setIsLogin, setData } = CartSlice.actions;
+export const { addCart, removeCart, setIsLogin, setuserDetails } =
+  CartSlice.actions;
 export default CartSlice.reducer;

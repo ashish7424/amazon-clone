@@ -11,6 +11,7 @@ function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const items = useSelector((state) => state.Cart.userCart);
+  const isLoggedin = useSelector((state) => state.Cart.isLogin);
 
   const removedata = (index) => {
     dispatch(removeCart(index));
@@ -21,14 +22,14 @@ function Cart() {
   }
   const total = element.toFixed(2);
   const proceedToBuy = () => {
-    navigate("/billingdetails", { state: { data: items, element: total } });
+    navigate("/billingdetails", { state: { element: total } });
   };
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div className="cartproducts">
         <div className="cart-title">Cart :</div>
         <br />
-        {items.length === 0 ? (
+        {items.length === 0 && isLoggedin ? (
           <div className="empty-cart">
             <div className="empty-content">
               <div>
@@ -47,7 +48,34 @@ function Cart() {
               </div>
             </div>
           </div>
-        ) : (
+        ) : items.length === 0 && !isLoggedin ? (
+          <div className="empty-cart">
+            <div className="empty-content">
+              <div>
+                <img src={cartitem} alt="cart-item" width={300} height={300} />
+              </div>
+              <div>
+                <h2 className="empty-cart-title">Your Amazon Cart is empty</h2>
+                <Button
+                  className="shop-now-btn"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  Register Now
+                </Button>
+                <Button
+                  className="shop-now-btn"
+                  onClick={() => {
+                    navigate("/signin");
+                  }}
+                >
+                  Log in to your account
+                </Button>
+              </div>
+            </div>
+          </div>
+        ):(
           items.map((item, index) => {
             return (
               <div className="cart-row" key={index}>

@@ -16,16 +16,28 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const data = useSelector((state) => state.Cart.userCart);
+  const Details = useSelector((state) => state.Cart.userDetails);
   const LoggedIn = useSelector((state) => state.Cart.isLogin);
-  const Details = useSelector((state) => state.Cart.data);
 
   const onLogOut = () => {
     navigate("/signin");
-    toast.success("Logout Successfully")
+    toast.success("Logout Successfully");
     dispatch(setIsLogin(false));
+  };
+  const myaccount = () => {
+    navigate("/myaccount");
   };
 
   const items = [
+    {
+      label: (
+        <div className="profile-setting" onClick={myaccount}>
+          <UserOutlined style={{ marginRight: "5px" }} />
+          My Account
+        </div>
+      ),
+      key: "0",
+    },
     {
       label: (
         <div className="profile-setting" onClick={onLogOut}>
@@ -33,14 +45,14 @@ function Header() {
           Log out
         </div>
       ),
-      key: "0",
+      key: "1",
     },
   ];
   return (
     <div>
       <Row className="header">
         {LoggedIn ? (
-          <Col span={1}>
+          <Col span={3} style={{display:"flex",justifyContent:"center"}}>
             <Dropdown
               className="dropdown-icon"
               menu={{
@@ -52,13 +64,13 @@ function Header() {
             </Dropdown>
           </Col>
         ) : (
-          <Col span={1}></Col>
+          // <Col span={1}></Col>
+          <Col span={3}>
+            <Link to="/signin" className="shop-link">
+              Login / Register
+            </Link>
+          </Col>
         )}
-        <Col span={2}>
-          <Link to="/signin" className="shop-link">
-            My Account
-          </Link>
-        </Col>
         <Col span={16}>
           <Link to="/">
             <img src={amazon1} alt="amazon" width={180} height={60} />
@@ -66,7 +78,7 @@ function Header() {
         </Col>
         <Col span={3}>
           {LoggedIn ? (
-            <p>Hello, {Details.email}</p>
+            <p style={{textTransform:"capitalize"}}>Hello, {Details.firstname}{" "}{Details.lastname}</p>
           ) : (
             <p>Hello,Please Signin</p>
           )}

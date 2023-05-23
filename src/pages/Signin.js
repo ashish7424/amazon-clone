@@ -1,36 +1,42 @@
 import "./main.css";
 import React from "react";
 import { toast } from "react-toastify";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Form, Input } from "antd";
 import amazon from "../PNG/Amazon logo.png";
-import { auth } from "../Firebase/Firebase";
+import { auth, db } from "../Firebase/Firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { setData, setIsLogin } from "../Store/CartSlice";
+import {  setIsLogin, setuserDetails } from "../Store/CartSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const LoggedIn = useSelector((state) => state.Cart.isLogin);
   const Signup = () => {
     navigate("/signup");
   };
 
   const onlogin = async (values) => {
-    console.log(values);
+    
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         if (userCredential) {
           toast.success("Login Successfully");
           dispatch(setIsLogin(true));
-          dispatch(setData(values))
-          navigate("/");
         }
       })
       .catch((error) => {
         toast.error("User Not Found");
       });
+    const querySnapshot = await collection(db, "user");
+    const que = query(querySnapshot, where("email", "==", values.email));
+    const snapshot = await getDocs(que);
+    snapshot.forEach((doc) => {
+      const user = { ...doc.data(), userid: doc.id };
+      dispatch(setuserDetails(user));
+    });
+    navigate("/");
   };
   return (
     <div>
@@ -74,9 +80,15 @@ function Signin() {
         </Button>
       </div>
       <div className="footer">
-        <Link className="footer-link" to="/condition">Conditions of Use</Link>
-        <Link className="footer-link" to="/privacy">Privacy Notice</Link>
-        <Link className="footer-link"to="/help">Help</Link>
+        <Link className="footer-link" to="/condition">
+          Conditions of Use
+        </Link>
+        <Link className="footer-link" to="/privacy">
+          Privacy Notice
+        </Link>
+        <Link className="footer-link" to="/help">
+          Help
+        </Link>
       </div>
       <div className="footer-title">
         © 1996-2023, Amazon.com, Inc. or its affiliates

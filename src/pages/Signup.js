@@ -1,18 +1,19 @@
 import "./main.css";
 import React from "react";
 import { toast } from "react-toastify";
-import { auth } from "../Firebase/Firebase";
+import { auth, db } from "../Firebase/Firebase";
 import amazon from "../PNG/Amazon logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Input, Typography } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 const { Title } = Typography;
 
 function Signup() {
   const navigate = useNavigate();
-  
+
   const register = async (values) => {
     console.log("object", values);
     await createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -20,10 +21,16 @@ function Signup() {
         const user = userCredential.user;
         console.log("User", user.uid);
         toast.success("Register Successfully");
-        
         navigate("/signin");
       })
       .catch((error) => toast.error("User Already Exist"));
+    try {
+      await addDoc(collection(db, "user"), {
+        ...values,
+      });
+    } catch (err) {
+      console.log("error", err);
+    }
   };
   return (
     <div>
@@ -35,11 +42,18 @@ function Signup() {
           <Form onFinish={register}>
             <h1> Create Your Account</h1>
             <Form.Item
-              name="name"
-              label="Your Name"
+              name="firstname"
+              label="First Name"
               rules={[{ required: true }]}
             >
-              <Input placeholder="first and last name" />
+              <Input placeholder=" Enter First Name" />
+            </Form.Item>
+            <Form.Item
+              name="lastname"
+              label="Last Name"
+              rules={[{ required: true }]}
+            >
+              <Input placeholder="Enter Last Name" />
             </Form.Item>
 
             <Form.Item
@@ -63,7 +77,7 @@ function Signup() {
               rules={[
                 {
                   type: "email",
-                  required:true,
+                  required: true,
                   message: "The input is not valid E-mail!",
                 },
               ]}
@@ -109,9 +123,15 @@ function Signup() {
         </div>
       </div>
       <div className="footer">
-        <Link className="footer-link" to="/condition">Conditions of Use</Link>
-        <Link className="footer-link" to="/privacy">Privacy Notice</Link>
-        <Link className="footer-link" to="/help">Help</Link>
+        <Link className="footer-link" to="/condition">
+          Conditions of Use
+        </Link>
+        <Link className="footer-link" to="/privacy">
+          Privacy Notice
+        </Link>
+        <Link className="footer-link" to="/help">
+          Help
+        </Link>
       </div>
       <div className="footer-title">
         © 1996-2023, Amazon.com, Inc. or its affiliates
