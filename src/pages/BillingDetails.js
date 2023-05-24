@@ -1,13 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { Button,  Form, Input,Select, Table } from "antd";
+import { Button, Form, Input, Select, Table } from "antd";
 
 function BillingDetails() {
   const location = useLocation();
   const [form] = Form.useForm();
   const item = useSelector((state) => state.Cart.userCart);
-  const data = useSelector((state) => state.Cart.data);
+  const data = useSelector((state) => state.Cart.userDetails);
+  console.log(data)
   const columns = [
     {
       title: "Product",
@@ -26,15 +27,15 @@ function BillingDetails() {
     form.resetFields();
   };
   return (
-    <div className="bill">
+    <div className="main-div">
       <div className="bill-details">Billing Details :</div>
       <br />
       <br />
       <div className="billing-form">
         <div>
           <Form
-          className="form-data"
             onFinish={onplaceorder}
+            className="form-data"
             form={form}
             labelCol={{
               span: 6,
@@ -44,14 +45,16 @@ function BillingDetails() {
             }}
           >
             <Form.Item
-              name="first name"
+              name="firstname"
+              initialValue={data.firstname}
               label="First Name"
               rules={[{ required: true }]}
             >
               <Input placeholder="First Name..." />
             </Form.Item>
             <Form.Item
-              name="last name"
+              name="lastname"
+              initialValue={data.lastname}
               label="Last Name"
               rules={[{ required: true }]}
             >
@@ -81,14 +84,14 @@ function BillingDetails() {
               <Input placeholder="Enter Your City..." />
             </Form.Item>
             <Form.Item
-              name="state "
+              name="state"
               label="State "
               rules={[{ required: true }]}
             >
               <Input placeholder="Enter Your State..." />
             </Form.Item>
             <Form.Item
-              name="pincode "
+              name="pincode"
               label="Postcode / ZIP "
               rules={[{ required: true }]}
             >
@@ -96,7 +99,8 @@ function BillingDetails() {
             </Form.Item>
 
             <Form.Item
-              name="Mobile"
+              name="mobile"
+              initialValue={data.mobile}
               label="Mobile number"
               rules={[
                 { required: true, message: "Please input your phone number!" },
@@ -111,7 +115,7 @@ function BillingDetails() {
               />
             </Form.Item>
             <Form.Item
-              name="Email"
+              name="email"
               initialValue={data.email}
               label="Email(Optional)"
               rules={[
@@ -123,34 +127,34 @@ function BillingDetails() {
             >
               <Input placeholder="Enter Your Email" />
             </Form.Item>
+            <div className="order-details">Your Order :</div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ width: "500px" }}>
+                <Table
+                  columns={columns}
+                  dataSource={item}
+                  pagination={false}
+                  rowKey={(record) => record.id}
+                  bordered
+                  footer={() => (
+                    <div className="bill-total">
+                      <p className="order-total">Total </p> ₹
+                      {location.state.element}
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+            <br />
+            <br />
+            <div className="order-btn-div">
+              <Button className="order-btn" htmlType="submit">
+                Place Order
+              </Button>
+            </div>
           </Form>
         </div>
         <br />
-        <div className="order-details">Your Order :</div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ width: "500px" }}>
-            <Table
-              columns={columns}
-              dataSource={item}
-              pagination={false}
-              rowKey={(record) => record.id}
-              bordered
-              footer={() => (
-                <div className="bill-total">
-                  <p className="order-total">Total </p> ₹
-                  {location.state.element}
-                </div>
-              )}
-            />
-          </div>
-        </div>
-        <br />
-        <br />
-        <div className="order-btn-div">
-          <Button className="order-btn" htmlType="submit">
-            Place Order
-          </Button>
-        </div>
       </div>
     </div>
   );

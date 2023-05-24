@@ -1,22 +1,35 @@
-import React, { useState } from "react";
-import { Button, Col, Form, Input, Row } from "antd";
-import { useSelector } from "react-redux";
 import user from "../PNG/user.png";
-import { EditOutlined } from "@ant-design/icons";
+import { Button, Col, Row } from "antd";
+import { useSelector } from "react-redux";
+import { db } from "../Firebase/Firebase";
+import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 
 function MyAccount() {
-  const userDetails = useSelector((state) => state.Cart.userDetails);
-  const [isEdit, setIsedit] = useState(false);
-  console.log("userDetails", userDetails);
-  const onFirstnameEdit = async () => {
-    setIsedit(true);
+  const navigate = useNavigate();
+  const [userdetails, setUserDetails] = useState("");
+  const userid = useSelector((state) => state.Cart.userId);
+
+  useEffect(() => {
+    getSingleUser();
+  },[]);
+
+  const getSingleUser = async () => {
+    const docRef = doc(db, "user", userid);
+    const snapshot = await getDoc(docRef);
+    console.log("snapshot", snapshot.data());
+    setUserDetails(snapshot.data());
   };
-  const onSaveChanges = (values) => {
-    console.log(values);
-    setIsedit(false);
+
+  const onImageSet=()=>{
+
+  }
+  const onEditDetails = (id) => {
+    navigate(`/edituser/${id}`);
   };
   return (
-    <div className="myaccount-div">
+    <div className="main-div">
       <div className="account">
         <p>Account Details :</p>
       </div>
@@ -24,59 +37,38 @@ function MyAccount() {
         <div className="myaccount-box">
           <div>
             <div className="account-img">
-              <img src={user} alt="user" width={200} height={200} />
+              <img  src={user} alt="user" width={200} height={200} onClick={onImageSet} />
+            </div>
+            <div className="account-img">
+              <Button
+                className="edit-icon"
+                onClick={() => onEditDetails(userid)}
+              >
+                Edit Details
+              </Button>
             </div>
             <Row justify="space-between" className="account-details">
               <Col>
                 <Col className="account-col">First Name :</Col>
-                <Col className="account-subcol">
-                  {isEdit ? (
-                    <>
-                      <Form onFinish={onSaveChanges}>
-                        <Form.Item initialValue={userDetails.firstname} name="firstname">
-                          <Input />
-                        </Form.Item>
-                        <Form.Item>
-                          <Button htmlType="submit" className="savechanges">
-                            Save Changes
-                          </Button>
-                        </Form.Item>
-                      </Form>
-                    </>
-                  ) : (
-                    userDetails.firstname
-                  )}
-                </Col>
-              </Col>
-              <Col className="edit-col">
-                <EditOutlined className="edit-icon" onClick={onFirstnameEdit} />
+                <Col className="account-subcol">{userdetails.firstname}</Col>
               </Col>
             </Row>
             <Row className="account-details" justify="space-between">
               <Col>
                 <Col className="account-col">Last Name :</Col>
-                <Col className="account-subcol">{userDetails.lastname}</Col>
-              </Col>
-              <Col className="edit-col">
-                <EditOutlined className="edit-icon" />
+                <Col className="account-subcol">{userdetails.lastname}</Col>
               </Col>
             </Row>
             <Row className="account-details" justify="space-between">
               <Col>
                 <Col className="account-col">Email :</Col>
-                <Col className="account--col">{userDetails.email}</Col>
-              </Col>
-              <Col className="edit-col">
-                <EditOutlined className="edit-icon" />
+                <Col className="account--col">{userdetails.email}</Col>
               </Col>
             </Row>
             <Row className="account-last-col" justify="space-between">
               <Col>
                 <Col className="account-col">Mobile :</Col>
-                <Col className="account--col">{userDetails.mobile}</Col>
-              </Col>
-              <Col className="edit-col">
-                <EditOutlined className="edit-icon" />
+                <Col className="account--col">{userdetails.mobile}</Col>
               </Col>
             </Row>
           </div>

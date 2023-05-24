@@ -25,8 +25,8 @@ function Cart() {
     navigate("/billingdetails", { state: { element: total } });
   };
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <div className="cartproducts">
+    <div className="cartproducts">
+      <div className="main-div">
         <div className="cart-title">Cart :</div>
         <br />
         {items.length === 0 && isLoggedin ? (

@@ -52,7 +52,7 @@ function Header() {
     <div>
       <Row className="header">
         {LoggedIn ? (
-          <Col span={3} style={{display:"flex",justifyContent:"center"}}>
+          <Col span={2} style={{display:"flex",justifyContent:"center"}}>
             <Dropdown
               className="dropdown-icon"
               menu={{
@@ -63,15 +63,15 @@ function Header() {
               <UserOutlined style={{ fontSize: "40px", color: "black" }} />
             </Dropdown>
           </Col>
+         
         ) : (
-          // <Col span={1}></Col>
-          <Col span={3}>
+          <Col span={2}>
             <Link to="/signin" className="shop-link">
               Login / Register
             </Link>
           </Col>
-        )}
-        <Col span={16}>
+        )} <Col span={3}></Col>
+        <Col span={14}>
           <Link to="/">
             <img src={amazon1} alt="amazon" width={180} height={60} />
           </Link>
