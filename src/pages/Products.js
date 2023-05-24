@@ -79,7 +79,6 @@ function Products() {
           trigger={["click"]}
         >
           <Button
-            // onClick={(e) => e.preventDefault()}
             className="categories-btn"
             style={{ textTransform: "capitalize" }}
           >

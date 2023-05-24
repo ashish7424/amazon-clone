@@ -4,11 +4,11 @@
 .amazonlogo {
   text-align: center;
 }
-/* Billing Details... */
 
-.bill {
+.main-div {
   margin-top: 100px;
 }
+/* Billing Details... */
 
 .bill-details {
   font-family: Cinzel;
@@ -53,7 +53,8 @@
 /* Cart  */
 
 .cartproducts {
-  margin-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 .cart-title {
   font-size: clamp(2rem, 4vw, 2.4rem);
@@ -80,7 +81,6 @@
 }
 .cartitem {
   display: flex;
-
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -123,7 +123,32 @@
   display: flex;
   justify-content: center;
 }
+/* Edit User */
 
+.edit-sub-div{
+  font-family: Cinzel;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.4rem);
+}
+.onback:hover{
+  cursor: pointer;
+}
+.savechanges-btn {
+  background-color: #faeb24;
+}
+.savechanges-btn:hover {
+  color: #16120f !important;
+}
+.user-div {
+  display: flex;
+  justify-content: center;
+}
+.user-sub-div {
+  width: 500px;
+  border: 2px solid grey;
+  padding: 20px;
+  border-radius: 10px;
+}
 /* FooterComp */
 
 .footer-div {
@@ -219,11 +244,9 @@
   font-size: clamp(2rem, 4vw, 2.4rem);
   font-weight: 400;
 }
-.myaccount-div {
-  margin-top: 100px;
-}
+
 .myaccount-box {
-  width: 500px;
+  width: 400px;
   border: 2px solid grey;
   border-radius: 20px;
 }
@@ -231,14 +254,17 @@
   padding-top: 15px;
   text-align: center;
 }
+.account-img:hover {
+  cursor: pointer;
+}
 
 .account-details {
-  width: 500px;
+  width: 400px;
   border-bottom: 2px solid grey;
   padding: 15px 15px;
 }
 .account-last-col {
-  width: 500px;
+  width: 400px;
   padding: 15px 15px;
 }
 .account-row {
@@ -265,13 +291,9 @@
   display: flex;
   align-items: center;
 }
-.edit-icon {
-  font-size: 20px;
-}
+
 .edit-icon:hover {
   cursor: pointer;
-}
-.savechanges:hover {
   color: #16120f !important;
 }
 

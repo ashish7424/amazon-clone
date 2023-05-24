@@ -7,14 +7,14 @@ import Signin from "./pages/Signin";
 import Header from "./pages/Header";
 import Privacy from "./pages/Privacy";
 import Products from "./pages/Products";
+import EditUser from "./pages/EditUser";
+import MyAccount from "./pages/MyAccount";
 import Condition from "./pages/Condition";
 import FooterComp from "./pages/FooterComp";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import BillingDetails from "./pages/BillingDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MyAccount from "./pages/MyAccount";
-import EditUser from "./pages/EditUser";
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/help" element={<Help />} />
           <Route path="/myaccount" element={<MyAccount />} />
-          <Route path="/edituser" element={<EditUser />} />
+          <Route path="/edituser/:id" element={<EditUser />} />
         </Routes>
         <FooterComp />
       </BrowserRouter>

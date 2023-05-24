@@ -6,37 +6,40 @@ import { Button, Form, Input } from "antd";
 import amazon from "../PNG/Amazon logo.png";
 import { auth, db } from "../Firebase/Firebase";
 import { Link, useNavigate } from "react-router-dom";
-import {  setIsLogin, setuserDetails } from "../Store/CartSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { setIsLogin, setUserDetails, setUserId } from "../Store/CartSlice";
 
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
   const Signup = () => {
     navigate("/signup");
   };
 
   const onlogin = async (values) => {
-    
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         if (userCredential) {
           toast.success("Login Successfully");
           dispatch(setIsLogin(true));
+          navigate("/");
         }
       })
       .catch((error) => {
-        toast.error("User Not Found");
+        toast.error("Invalid Email or Password");
+        form.resetFields();
       });
     const querySnapshot = await collection(db, "user");
     const que = query(querySnapshot, where("email", "==", values.email));
     const snapshot = await getDocs(que);
     snapshot.forEach((doc) => {
       const user = { ...doc.data(), userid: doc.id };
-      dispatch(setuserDetails(user));
+      const userid = doc.id;
+      dispatch(setUserDetails(user));
+      dispatch(setUserId(userid));
     });
-    navigate("/");
   };
   return (
     <div>
@@ -46,9 +49,15 @@ function Signin() {
       <p className="title">LOGIN </p>
       <div className="form2">
         <div className="signin-form">
-          <Form onFinish={onlogin}>
+          <Form
+            form={form}
+            onFinish={onlogin}
+            labelCol={{
+              span: 6,
+            }}
+          >
             <Form.Item className="signin-label" label="Email" name="email">
-              <Input />
+              <Input placeholder=" Email Address..." />
             </Form.Item>
             <br />
             <Form.Item
@@ -56,7 +65,7 @@ function Signin() {
               label=" Password "
               name="password"
             >
-              <Input.Password />
+              <Input.Password placeholder=" Password..." />
             </Form.Item>
             <br />
             <Button className="signin-cntn-btn" htmlType="submit">

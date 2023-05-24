@@ -1,18 +1,19 @@
 import "./main.css";
 import React from "react";
 import { toast } from "react-toastify";
-import { auth, db } from "../Firebase/Firebase";
 import amazon from "../PNG/Amazon logo.png";
+import { auth, db } from "../Firebase/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Input, Typography } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const { Title } = Typography;
 
 function Signup() {
   const navigate = useNavigate();
+  const [form]=Form.useForm()
 
   const register = async (values) => {
     console.log("object", values);
@@ -20,17 +21,16 @@ function Signup() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User", user.uid);
+        addDoc(collection(db, "user"), {
+          ...values,
+        });
         toast.success("Register Successfully");
         navigate("/signin");
       })
-      .catch((error) => toast.error("User Already Exist"));
-    try {
-      await addDoc(collection(db, "user"), {
-        ...values,
+      .catch((error) => {
+        toast.error("User Already Exist");
+        form.resetFields()
       });
-    } catch (err) {
-      console.log("error", err);
-    }
   };
   return (
     <div>
@@ -39,26 +39,32 @@ function Signup() {
       </div>
       <div className="form1">
         <div className="signup-form">
-          <Form onFinish={register}>
+          <Form
+           form={form}
+            onFinish={register}
+            labelCol={{
+              span: 6,
+            }}
+          >
             <h1> Create Your Account</h1>
             <Form.Item
               name="firstname"
               label="First Name"
               rules={[{ required: true }]}
             >
-              <Input placeholder=" Enter First Name" />
+              <Input placeholder=" First Name" />
             </Form.Item>
             <Form.Item
               name="lastname"
               label="Last Name"
               rules={[{ required: true }]}
             >
-              <Input placeholder="Enter Last Name" />
+              <Input placeholder=" Last Name" />
             </Form.Item>
 
             <Form.Item
               name="mobile"
-              label="Mobile number"
+              label="Mobile"
               rules={[
                 { required: true, message: "Please input your phone number!" },
               ]}
@@ -82,7 +88,7 @@ function Signup() {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder=" Email Address" />
             </Form.Item>
             <Form.Item
               name="password"
