@@ -125,12 +125,12 @@
 }
 /* Edit User */
 
-.edit-sub-div{
+.edit-sub-div {
   font-family: Cinzel;
   text-align: center;
   font-size: clamp(2rem, 4vw, 2.4rem);
 }
-.onback:hover{
+.onback:hover {
   cursor: pointer;
 }
 .savechanges-btn {
@@ -155,7 +155,6 @@
   /* background-color: #27384c; */
   background-color: #16120f;
   color: white;
-  height: 380px;
 }
 
 .foooter-row {
@@ -235,6 +234,24 @@
   height: 19px;
   border-radius: 50%;
   width: 20px;
+  @media  only screen {
+    right: 31%;
+  }
+  @media (max-width: 2560px) {
+    right: 36%;
+  }
+  @media (max-width: 1800px) {
+    right: 31%;
+  }
+  @media (max-width: 1440px) {
+    right: 25%;
+  }
+  @media (max-width: 1024px) {
+    right: 16%;
+  }
+  @media (max-width: 768px) {
+    right: 7%;
+  }
 }
 /* My Account */
 .account {
@@ -342,7 +359,7 @@
 /* Signup Form */
 
 .signup-form {
-  width: 20%;
+  width: 25%;
   border: 1px solid grey;
   border-radius: 3%;
   padding: 25px;
@@ -398,6 +415,7 @@
   font-size: 15px;
   display: flex;
   justify-content: center;
+  padding-bottom: 70px;
 }
 /* Sign-in Form */
 
@@ -411,7 +429,7 @@
 }
 
 .signin-form {
-  width: 20%;
+  width: 30%;
   border: 1px solid grey;
   border-radius: 3%;
   padding: 35px 25px 25px;

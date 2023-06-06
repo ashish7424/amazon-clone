@@ -10,15 +10,15 @@ import { useDispatch, useSelector } from "react-redux";
 function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.Cart.userCart);
+  const addToCart = useSelector((state) => state.Cart.userCart);
   const isLoggedin = useSelector((state) => state.Cart.isLogin);
 
   const removedata = (index) => {
     dispatch(removeCart(index));
   };
   var element = 0;
-  for (let i = 0; i < items.length; i++) {
-    element = element + items[i].price;
+  for (let i = 0; i < addToCart.length; i++) {
+    element = element + addToCart[i].price;
   }
   const total = element.toFixed(2);
   const proceedToBuy = () => {
@@ -29,7 +29,7 @@ function Cart() {
       <div className="main-div">
         <div className="cart-title">Cart :</div>
         <br />
-        {items.length === 0 && isLoggedin ? (
+        {addToCart.length === 0 && isLoggedin ? (
           <div className="empty-cart">
             <div className="empty-content">
               <div>
@@ -48,7 +48,7 @@ function Cart() {
               </div>
             </div>
           </div>
-        ) : items.length === 0 && !isLoggedin ? (
+        ) : addToCart.length === 0 && !isLoggedin ? (
           <div className="empty-cart">
             <div className="empty-content">
               <div>
@@ -75,8 +75,8 @@ function Cart() {
               </div>
             </div>
           </div>
-        ):(
-          items.map((item, index) => {
+        ) : (
+          addToCart.map((item, index) => {
             return (
               <div className="cart-row" key={index}>
                 <Row className="cartitem" gutter={[20, 20]}>
@@ -107,7 +107,7 @@ function Cart() {
           })
         )}
 
-        {items.length === 0 ? (
+        {addToCart.length === 0 ? (
           <div></div>
         ) : (
           <div className="cart-total">
@@ -115,10 +115,10 @@ function Cart() {
             <div>
               <Row justify="space-between" className="row-total">
                 <Col span={8} className="col-key">
-                  {items.length === 1 ? "Total Item " : "Total Items"}
+                  {addToCart.length === 1 ? "Total Item " : "Total Items"}
                 </Col>
                 <Col span={6} className="col-total">
-                  {items.length}
+                  {addToCart.length}
                 </Col>
               </Row>
             </div>
@@ -132,8 +132,8 @@ function Cart() {
             </Row>
             <div className="buy-btn-div">
               <Button className="buy-btn" onClick={proceedToBuy}>
-                Proceed to Buy ({items.length}
-                {items.length === 1 ? " item" : " items"})
+                Proceed to Buy ({addToCart.length}
+                {addToCart.length === 1 ? " item" : " items"})
               </Button>
             </div>
           </div>

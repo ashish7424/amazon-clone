@@ -13,6 +13,7 @@ function MyAccount() {
 
   useEffect(() => {
     getSingleUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   const getSingleUser = async () => {
