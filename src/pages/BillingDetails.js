@@ -138,7 +138,7 @@ function BillingDetails() {
                   bordered
                   footer={() => (
                     <div className="bill-total">
-                      <p className="order-total">Total </p> ₹
+                      <p className="order-total">Total </p> $
                       {location.state.element}
                     </div>
                   )}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { toast } from "react-toastify";
 import React, { useEffect } from "react";
 import { db } from "../Firebase/Firebase";

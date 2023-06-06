@@ -5,6 +5,7 @@ import { DownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Dropdown, Rate, Row } from "antd";
 
+
 function Products() {
   const items = [
     {
@@ -52,7 +53,7 @@ function Products() {
         }
       );
       setLoading(false);
-    }
+    } 
   };
   const getProducts = async () => {
     setLoading(true);
@@ -101,7 +102,7 @@ function Products() {
 
       {loading ? (
         <div className="spinner">
-          <TailSpin color="grey"/>
+          <TailSpin color="grey" />
         </div>
       ) : (
         <Row gutter={[20, 20]} className="cards">
@@ -129,7 +130,7 @@ function Products() {
                   </Col>
                   <Col>
                     <Rate allowHalf defaultValue={item.rating.rate} disabled />
-                     {item.rating.rate}
+                    {item.rating.rate}
                   </Col>
                   <Col>(Reviews : {item.rating.count})</Col>
                   <br />
@@ -145,6 +146,7 @@ function Products() {
           })}
         </Row>
       )}
+   
     </div>
   );
 }

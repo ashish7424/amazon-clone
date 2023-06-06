@@ -15,7 +15,7 @@ import {
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = useSelector((state) => state.Cart.userCart);
+  const addToCart = useSelector((state) => state.Cart.userCart);
   const Details = useSelector((state) => state.Cart.userDetails);
   const LoggedIn = useSelector((state) => state.Cart.isLogin);
 
@@ -52,7 +52,7 @@ function Header() {
     <div>
       <Row className="header">
         {LoggedIn ? (
-          <Col span={2} style={{display:"flex",justifyContent:"center"}}>
+          <Col span={2} style={{ display: "flex", justifyContent: "center" }}>
             <Dropdown
               className="dropdown-icon"
               menu={{
@@ -63,14 +63,14 @@ function Header() {
               <UserOutlined style={{ fontSize: "40px", color: "black" }} />
             </Dropdown>
           </Col>
-         
         ) : (
           <Col span={2}>
             <Link to="/signin" className="shop-link">
               Login / Register
             </Link>
           </Col>
-        )} <Col span={3}></Col>
+        )}{" "}
+        <Col span={3}></Col>
         <Col span={14}>
           <Link to="/">
             <img src={amazon1} alt="amazon" width={180} height={60} />
@@ -78,7 +78,9 @@ function Header() {
         </Col>
         <Col span={3}>
           {LoggedIn ? (
-            <p style={{textTransform:"capitalize"}}>Hello, {Details.firstname}{" "}{Details.lastname}</p>
+            <p style={{ textTransform: "capitalize" }}>
+              Hello, {Details.firstname} {Details.lastname}
+            </p>
           ) : (
             <p>Hello,Please Signin</p>
           )}
@@ -88,7 +90,7 @@ function Header() {
             <ShoppingCartOutlined
               style={{ fontSize: "50px", color: "black" }}
             />
-            <label className="itemnumber">{data.length}</label>
+            <label className="itemnumber">{addToCart.length}</label>
           </Link>
         </Col>
       </Row>
