@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import BillingDetails from "./pages/BillingDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -24,15 +25,16 @@ function App() {
         <ToastContainer style={{ marginTop: "50px" }} />
         <Routes>
           <Route path="/" element={<Products />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/help" element={<Help />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/billingdetails" element={<BillingDetails />} />
-          <Route path="/condition" element={<Condition />} />
           <Route path="/privacy" element={<Privacy />} />
-          <Route path="/help" element={<Help />} />
+          <Route path="/condition" element={<Condition />} />
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/edituser/:id" element={<EditUser />} />
+          <Route path="/billingdetails" element={<BillingDetails />} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
         <FooterComp />
       </BrowserRouter>

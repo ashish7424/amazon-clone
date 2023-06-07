@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { removeCart } from "../Store/CartSlice";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 function Cart() {
   const navigate = useNavigate();
@@ -22,7 +23,12 @@ function Cart() {
   }
   const total = element.toFixed(2);
   const proceedToBuy = () => {
-    navigate("/billingdetails", { state: { element: total } });
+    if (isLoggedin) {
+      navigate("/billingdetails", { state: { element: total } });
+    }else{
+      toast.warning("Please Login!")
+      navigate("/signin" );
+    }
   };
   return (
     <div className="cartproducts">
