@@ -5,7 +5,6 @@ import { DownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Dropdown, Rate, Row } from "antd";
 
-
 function Products() {
   const items = [
     {
@@ -53,7 +52,7 @@ function Products() {
         }
       );
       setLoading(false);
-    } 
+    }
   };
   const getProducts = async () => {
     setLoading(true);
@@ -93,7 +92,9 @@ function Products() {
         <div>
           <label className="dropdown-key">{data}</label>
           <p className="result">
-            Showing {products?.length} Results :({data})
+            {loading
+              ? "Please Wait..."
+              : ` Showing ${products?.length} Results :(${data})`}
           </p>
         </div>
       ) : (
@@ -108,15 +109,16 @@ function Products() {
         <Row gutter={[20, 20]} className="cards">
           {products.map((item, index) => {
             return (
-              <Col key={index} xl={6} xxl={6} sm={12} lg={6} xs={12}>
+              <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={12} md={12}>
                 <Card
                   hoverable
                   title={item.title}
                   cover={
-                    <img
+                    <img  
                       alt="example"
                       className="product-img"
                       src={item.image}
+                    
                     />
                   }
                 >
@@ -146,7 +148,6 @@ function Products() {
           })}
         </Row>
       )}
-   
     </div>
   );
 }

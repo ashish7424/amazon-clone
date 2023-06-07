@@ -152,23 +152,23 @@
 /* FooterComp */
 
 .footer-div {
-  /* background-color: #27384c; */
   background-color: #16120f;
   color: white;
+  margin-top: 50px;
 }
 
 .foooter-row {
   background-color: #16120f;
   color: white;
-  height: 300px;
-  padding-top: 50px;
-  margin-top: 50px;
+  padding: 50px 0  0 20px;
+}
+.amazon-col{
+  margin-bottom: 20px;
 }
 .amazon-title {
   font-size: 20px;
   margin: 20px 0px;
 }
-
 .social-link {
   color: white;
 }
@@ -185,6 +185,9 @@
   font-size: 15px;
   margin-bottom: 5px;
 }
+.sub-col{
+    margin-bottom: 20px;
+}
 .order {
   font-size: 20px;
   margin-bottom: 10px;
@@ -198,9 +201,6 @@
   font-size: 20px;
 }
 
-.letter {
-  padding-bottom: 78px;
-}
 /* Header*/
 
 .header {
@@ -234,7 +234,7 @@
   height: 19px;
   border-radius: 50%;
   width: 20px;
-  @media  only screen {
+  @media only screen {
     right: 31%;
   }
   @media (max-width: 2560px) {
@@ -319,11 +319,10 @@
 .product-img {
   display: flex;
   justify-content: center;
-  width: 250px;
-  height: 300px;
+  height: 250px;
 }
 .cards {
-  margin: 50px 0 0 0 !important;
+  margin: 50px 0 50px 0 !important;
 }
 .card-span {
   font-size: 18px;
@@ -356,6 +355,37 @@
   color: #fff;
 }
 
+/* PageNotFound */
+
+.page-not-found {
+  margin-top: 70px;
+  /* text-align: center; */
+  height: calc(100vh - 508px);
+}
+.img-center{
+  text-align: center;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.question-logo {
+  padding: 15px;
+  font-size: 50px;
+  color: #ed8b0a;
+}
+.error-title {
+  color: #ed8b0a;
+}
+
+.go-home {
+  text-decoration: none;
+}
+.go-home:hover {
+  color: #ed8b0a;
+  text-decoration: underline;
+}
 /* Signup Form */
 
 .signup-form {

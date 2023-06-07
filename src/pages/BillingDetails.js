@@ -8,7 +8,7 @@ function BillingDetails() {
   const [form] = Form.useForm();
   const item = useSelector((state) => state.Cart.userCart);
   const data = useSelector((state) => state.Cart.userDetails);
-  console.log(data)
+  console.log(data);
   const columns = [
     {
       title: "Product",
@@ -83,11 +83,7 @@ function BillingDetails() {
             >
               <Input placeholder="Enter Your City..." />
             </Form.Item>
-            <Form.Item
-              name="state"
-              label="State "
-              rules={[{ required: true }]}
-            >
+            <Form.Item name="state" label="State " rules={[{ required: true }]}>
               <Input placeholder="Enter Your State..." />
             </Form.Item>
             <Form.Item
@@ -138,7 +134,7 @@ function BillingDetails() {
                   bordered
                   footer={() => (
                     <div className="bill-total">
-                      <p className="order-total">Total </p> $
+                      <p className="order-total">Total </p> ₹
                       {location.state.element}
                     </div>
                   )}

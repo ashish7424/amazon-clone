@@ -37,7 +37,7 @@ function EditUser() {
         <ArrowLeftOutlined /> Back
       </div>
       <div className="edit-sub-div">
-        <p>Change Your Details :</p>
+        <p>Change Account Details :</p>
       </div>
       <div className="user-div">
         <div className="user-sub-div">
