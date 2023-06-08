@@ -19,7 +19,7 @@
 }
 .billing-form {
   margin: auto;
-  width: 544px;
+  /* width: 50%; */
 }
 .order-details {
   font-family: Cinzel;
@@ -76,9 +76,10 @@
 .shop-now-btn:hover {
   color: black !important;
 }
-.cart-row {
+/* .cart-row {
   width: 900px;
-}
+} */
+
 .cartitem {
   display: flex;
   width: 100%;
@@ -160,9 +161,9 @@
 .foooter-row {
   background-color: #16120f;
   color: white;
-  padding: 50px 0  0 20px;
+  padding: 50px 0 0 20px;
 }
-.amazon-col{
+.amazon-col {
   margin-bottom: 20px;
 }
 .amazon-title {
@@ -185,8 +186,8 @@
   font-size: 15px;
   margin-bottom: 5px;
 }
-.sub-col{
-    margin-bottom: 20px;
+.sub-col {
+  margin-bottom: 20px;
 }
 .order {
   font-size: 20px;
@@ -234,24 +235,6 @@
   height: 19px;
   border-radius: 50%;
   width: 20px;
-  @media only screen {
-    right: 31%;
-  }
-  @media (max-width: 2560px) {
-    right: 36%;
-  }
-  @media (max-width: 1800px) {
-    right: 31%;
-  }
-  @media (max-width: 1440px) {
-    right: 25%;
-  }
-  @media (max-width: 1024px) {
-    right: 16%;
-  }
-  @media (max-width: 768px) {
-    right: 7%;
-  }
 }
 /* My Account */
 .account {
@@ -345,7 +328,8 @@
   margin-left: 20px;
 }
 .spinner {
-  height: 100vh;
+  height: calc(100vh - 559px);
+  font-size: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -359,10 +343,11 @@
 
 .page-not-found {
   margin-top: 70px;
+  margin-bottom: 63px;
   /* text-align: center; */
-  height: calc(100vh - 508px);
+  /* height: calc(100vh - 508px); */
 }
-.img-center{
+.img-center {
   text-align: center;
 }
 .flex {
@@ -494,4 +479,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media only screen {
+  .itemnumber {
+    right: 31%;
+  }
+}
+@media screen and (max-width: 2560px) {
+  .itemnumber {
+    right: 36%;
+  }
+}
+@media screen and (max-width: 1800px) {
+  .itemnumber {
+    right: 31%;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .itemnumber {
+    right: 25%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .itemnumber {
+    right: 16%;
+  }
+  .signup-form {
+    width: 40%;
+  }
+  .signin-form {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .itemnumber {
+    right: 7%;
+  }
+  .signup-form {
+    width: 50%;
+  }
+  .signin-form {
+    width: 45%;
+  }
 }

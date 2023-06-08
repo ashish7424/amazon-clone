@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
-import { addCart } from "../Store/CartSlice";
-import { TailSpin } from "react-loader-spinner";
-import { DownOutlined } from "@ant-design/icons";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useDispatch, useSelector } from "react-redux";
+import { addCart, getuser } from "../Store/CartSlice";
+import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Dropdown, Rate, Row } from "antd";
 
@@ -29,21 +29,21 @@ function Products() {
     },
   ];
 
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState("");
+  const [products, setProducts] = useState([]);
+  const cartProduct = useSelector((state) => state.Cart.cartProducts);
+  const isLoading=useSelector((state)=>state.Cart.isLoading)
 
   useEffect(() => {
-    getProducts();
+    dispatch(getuser());
   }, []);
 
   const onClick = async ({ key }) => {
     setData(key);
     if (key === "all") {
-      getProducts();
+         dispatch(getuser());
     } else {
-      setLoading(true);
       await fetch(`https://fakestoreapi.com/products/category/${key}`).then(
         (res) => {
           res.json().then((result) => {
@@ -51,19 +51,8 @@ function Products() {
           });
         }
       );
-      setLoading(false);
     }
-  };
-  const getProducts = async () => {
-    setLoading(true);
-    await fetch("https://fakestoreapi.com/products").then((res) => {
-      res.json().then((result) => {
-        console.log(result);
-        setProducts(result);
-      });
-    });
-    setLoading(false);
-  };
+  }; 
 
   const addcart = (item) => {
     dispatch(addCart(item));
@@ -92,33 +81,30 @@ function Products() {
         <div>
           <label className="dropdown-key">{data}</label>
           <p className="result">
-            {loading
-              ? "Please Wait..."
-              : ` Showing ${products?.length} Results :(${data})`}
+            {`Showing ${products?.length} Results :(${data})`}
           </p>
         </div>
       ) : (
         ""
       )}
 
-      {loading ? (
+      {isLoading ? (
         <div className="spinner">
-          <TailSpin color="grey" />
+          <LoadingOutlined />
         </div>
       ) : (
         <Row gutter={[20, 20]} className="cards">
-          {products.map((item, index) => {
+          {cartProduct.map((item, index) => {
             return (
               <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={12} md={12}>
                 <Card
                   hoverable
                   title={item.title}
                   cover={
-                    <img  
+                    <img
                       alt="example"
                       className="product-img"
                       src={item.image}
-                    
                     />
                   }
                 >
