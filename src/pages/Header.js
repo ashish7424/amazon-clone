@@ -66,7 +66,11 @@ function Header() {
         ) : (
           <Col span={2}>
             <Link to="/signin" className="shop-link">
-              Login / Register
+              Login
+            </Link>
+            /
+            <Link to="/signup" className="shop-link">
+              Register
             </Link>
           </Col>
         )}{" "}

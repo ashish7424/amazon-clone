@@ -40,7 +40,7 @@ function Signup() {
       <div className="form1">
         <div className="signup-form">
           <Form
-           form={form}
+            form={form}
             onFinish={register}
             labelCol={{
               span: 6,
@@ -123,8 +123,16 @@ function Signup() {
           <br />
           <div className="policy">
             By creating an account or logging in, you agree to Amazon’s
-            <Link className="signin-link"> Conditions of Use </Link> and
-            <Link className="signin-link"> Privacy Policy </Link>.
+            <Link className="signin-link" to="/condition">
+              {" "}
+              Conditions of Use{" "}
+            </Link>{" "}
+            and
+            <Link className="signin-link" to="/privacy">
+              {" "}
+              Privacy Policy
+            </Link>
+            .
           </div>
         </div>
       </div>

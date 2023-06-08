@@ -1,5 +1,5 @@
 import "./main.css";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { Button, Form, Input } from "antd";
@@ -13,23 +13,26 @@ import { setIsLogin, setUserDetails, setUserId } from "../Store/CartSlice";
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [Loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const Signup = () => {
     navigate("/signup");
   };
 
   const onlogin = async (values) => {
+    setLoading(true);
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         if (userCredential) {
-          toast.success("Login Successfully");
           dispatch(setIsLogin(true));
+          toast.success("Login Successfully");
           navigate("/");
         }
       })
       .catch((error) => {
         toast.error("Invalid Email or Password");
         form.resetFields();
+        setLoading(false);
       });
     const querySnapshot = await collection(db, "user");
     const que = query(querySnapshot, where("email", "==", values.email));
@@ -40,6 +43,7 @@ function Signin() {
       dispatch(setUserDetails(user));
       dispatch(setUserId(userid));
     });
+    setLoading(false);
   };
   return (
     <div>
@@ -56,7 +60,17 @@ function Signin() {
               span: 6,
             }}
           >
-            <Form.Item className="signin-label" label="Email" name="email">
+            <Form.Item
+              className="signin-label"
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                },
+              ]}
+            >
               <Input placeholder=" Email Address..." />
             </Form.Item>
             <br />
@@ -64,19 +78,34 @@ function Signin() {
               className="signin-label"
               label=" Password "
               name="password"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               <Input.Password placeholder=" Password..." />
             </Form.Item>
             <br />
-            <Button className="signin-cntn-btn" htmlType="submit">
+            <Button
+              className="signin-cntn-btn"
+              htmlType="submit"
+              loading={Loading}
+            >
               Continue
             </Button>
           </Form>
           <br />
           <div className="terms">
             By continuing, you agree to Amazon's
-            <Link className="footer-link"> Conditions of Use</Link>
-            and <Link className="footer-link">Privacy Notice.</Link>
+            <Link className="footer-link" to="/condition">
+              {" "}
+              Conditions of Use
+            </Link>
+            and{" "}
+            <Link className="footer-link" to="/privacy">
+              Privacy Notice.
+            </Link>
           </div>
         </div>
       </div>

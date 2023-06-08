@@ -15,7 +15,6 @@ function FooterComp() {
       <Row className="foooter-row" justify="center">
         <Col
           className="sub-col"
-          // span={6}
           md={24}
           lg={12}
           sm={24}
@@ -63,7 +62,6 @@ function FooterComp() {
         </Col>
         <Col
           className="sub-col"
-          // span={2}
           md={8}
           lg={12}
           sm={24}
@@ -79,7 +77,6 @@ function FooterComp() {
         </Col>
         <Col
           className="sub-col"
-          // span={2}
           md={8}
           lg={12}
           sm={24}
@@ -95,7 +92,6 @@ function FooterComp() {
         </Col>
         <Col
           className="letter"
-          // span={4}
           md={8}
           lg={12}
           sm={24}
