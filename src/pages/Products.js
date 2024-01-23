@@ -1,11 +1,38 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useDispatch, useSelector } from "react-redux";
-import { addCart, getuser } from "../Store/CartSlice";
-import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Dropdown, Rate, Row } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { filter } from "lodash";
+import {
+  Button,
+  Card,
+  Col,
+  Dropdown,
+  Input,
+  Rate,
+  Row,
+  Typography,
+} from "antd";
+import {
+  DownOutlined,
+  LoadingOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import { routeNames } from "constants/pageRoutes.constants";
+import { addCart, setSingleDetails } from "store/CartSlice/CartSlice";
+import { getProducts, getProductsByCategories } from "store/CartSlice/actions";
+import { shortLabel } from "utils/utils";
+
+const { Text } = Typography;
 
 function Products() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [data, setData] = useState("");
+  const [products, setProducts] = useState([]);
+  const [filterText, setFilterText] = useState("");
+  const isLoading = useSelector((state) => state.Cart.isLoading);
+  const Products = useSelector((state) => state.Cart.products);
+
   const items = [
     {
       label: "All",
@@ -29,37 +56,41 @@ function Products() {
     },
   ];
 
-  const dispatch = useDispatch();
-  const [data, setData] = useState("");
-  const [products, setProducts] = useState([]);
-  const cartProduct = useSelector((state) => state.Cart.cartProducts);
-  const isLoading=useSelector((state)=>state.Cart.isLoading)
+  useEffect(() => {
+    dispatch(getProducts());
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-    dispatch(getuser());
-  }, []);
+    setProducts(Products);
+  }, [Products]);
 
   const onClick = async ({ key }) => {
     setData(key);
     if (key === "all") {
-         dispatch(getuser());
+      dispatch(getProducts());
     } else {
-      await fetch(`https://fakestoreapi.com/products/category/${key}`).then(
-        (res) => {
-          res.json().then((result) => {
-            setProducts(result);
-          });
-        }
-      );
+      dispatch(getProductsByCategories(key));
     }
-  }; 
+  };
 
   const addcart = (item) => {
     dispatch(addCart(item));
   };
+  const SearchProduct = (e) => {
+    setFilterText(e.target.value);
+  };
+
+  const productDataFilter = filter(products, (item) => {
+    if (filterText && filterText.length >= 1) {
+      return shortLabel(item.category).includes(shortLabel(filterText));
+    }
+    return products;
+  });
+
   return (
     <div>
-      <div style={{ margin: "100px 0 0 50px" }}>
+      <div className="product-filter">
         <Dropdown
           menu={{
             items,
@@ -75,6 +106,13 @@ function Products() {
             <DownOutlined />
           </Button>
         </Dropdown>
+        <Input
+          placeholder="Search Product..."
+          className="search-input"
+          value={filterText}
+          onChange={SearchProduct}
+          prefix={<SearchOutlined />}
+        />
       </div>
 
       {data !== "all" && data !== "" ? (
@@ -94,44 +132,53 @@ function Products() {
         </div>
       ) : (
         <Row gutter={[20, 20]} className="cards">
-          {cartProduct.map((item, index) => {
-            return (
-              <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={12} md={12}>
-                <Card
-                  hoverable
-                  title={item.title}
-                  cover={
-                    <img
-                      alt="example"
-                      className="product-img"
-                      src={item.image}
-                    />
-                  }
-                >
-                  <Col>
-                    <span className="card-span">Category : </span>
-                    {item?.category}
-                  </Col>
-                  <Col>
-                    <span className="card-span">Price : </span>
-                    {item?.price || "0"} ₹
-                  </Col>
-                  <Col>
-                    <Rate allowHalf defaultValue={item.rating.rate} disabled />
-                    {item.rating.rate}
-                  </Col>
-                  <Col>(Reviews : {item.rating.count})</Col>
-                  <br />
-                  <Button
-                    onClick={() => addcart(item)}
-                    className="add-cart-btn"
+          {productDataFilter &&
+            productDataFilter.map((item, index) => {
+              return (
+                <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={12} md={12}>
+                  <Card
+                    hoverable
+                    title={item.title}
+                    cover={
+                      <img
+                        alt="example"
+                        className="product-img"
+                        src={item.image}
+                        onClick={() => {
+                          dispatch(setSingleDetails(item));
+                          navigate(routeNames.SingleProduct);
+                        }}
+                      />
+                    }
                   >
-                    Add to Cart
-                  </Button>
-                </Card>
-              </Col>
-            );
-          })}
+                    <Col>
+                      <Text className="card-span">Category : </Text>
+                      {item?.category}
+                    </Col>
+                    <Col>
+                      <Text className="card-span">Price : </Text>
+                      {item?.price || "0"} ₹
+                    </Col>
+                    <Col>
+                      <Rate
+                        allowHalf
+                        defaultValue={item.rating.rate}
+                        disabled
+                      />
+                      {item.rating.rate}
+                    </Col>
+                    <Col>(Reviews : {item.rating.count})</Col>
+                    <br />
+                    <Button
+                      onClick={() => addcart(item)}
+                      className="add-cart-btn"
+                    >
+                      Add to Cart
+                    </Button>
+                  </Card>
+                </Col>
+              );
+            })}
         </Row>
       )}
     </div>

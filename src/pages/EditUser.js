@@ -1,41 +1,78 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import React, { useEffect } from "react";
-import { db } from "../Firebase/Firebase";
-import { Button, Form, Input } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Form, Input, Upload, message } from "antd";
+import { ArrowLeftOutlined, UploadOutlined } from "@ant-design/icons";
+import { routeNames } from "constants/pageRoutes.constants";
+import { editDetails, setUserDetails } from "store/User/slice";
+
+const beforeUpload = (file) => {
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isLt2M;
+};
 
 function EditUser() {
   const [form] = Form.useForm();
   const { id } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userDetails = useSelector((state) => state.user.userDetails);
+  const [imageUrl, setImageUrl] = useState();
 
   useEffect(() => {
-    singleUser();
+    form.setFieldsValue(userDetails);
+    setImageUrl(userDetails.image);
+    // eslint-disable-next-line
   }, []);
-  const singleUser = async () => {
-    const docRef = doc(db, "user", id);
-    const snapshot = await getDoc(docRef);
-    console.log("snapshot", snapshot.data());
-    if (snapshot.exists()) {
-      form.setFieldsValue({ ...snapshot.data() });
+
+  const handleEditDetails = (values) => {
+    dispatch(
+      setUserDetails({
+        ...values,
+        id: userDetails.id,
+        image: imageUrl,
+      })
+    );
+    dispatch(editDetails({ values, index: id, image: imageUrl }));
+    toast.success("Details Updated Successfully");
+    navigate(routeNames.MyAccount);
+  };
+  
+  const handleBack = () => {
+    navigate(routeNames.MyAccount);
+  };
+
+  const normFile = (e) => {
+    return e?.file;
+  };
+
+  const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  };
+
+  const handleChangeImage = (info) => {
+    if (info.file.status === "done") {
+      getBase64(info.file.originFileObj, (url) => {
+        setImageUrl(url);
+      });
     }
   };
-  const onSaveChanges = async (values) => {
-    await updateDoc(doc(db, "user", id), { ...values });
-    toast.success("Details Updated Successfully");
-    navigate("/myaccount");
-  };
-  const onback = () => {
-    navigate("/myaccount");
-  };
+
   return (
-    <div className="main-div">
-      <div className="onback" onClick={onback}>
-        <ArrowLeftOutlined /> Back
-      </div>
+    <div>
+      <Button
+        shape="circle"
+        type="text"
+        className="on-back"
+        icon={<ArrowLeftOutlined />}
+        onClick={handleBack}
+      />
       <div className="edit-sub-div">
         <p>Change Account Details :</p>
       </div>
@@ -44,13 +81,9 @@ function EditUser() {
           <Form
             form={form}
             className="form-data"
-            onFinish={onSaveChanges}
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 14,
-            }}
+            onFinish={handleEditDetails}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 14 }}
           >
             <Form.Item name="firstname" label="First Name">
               <Input />
@@ -63,6 +96,34 @@ function EditUser() {
             </Form.Item>
             <Form.Item name="password" label="Password">
               <Input />
+            </Form.Item>
+            <Form.Item
+              label="Upload"
+              valuePropName="file"
+              getValueFromEvent={normFile}
+              name="image"
+            >
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                showUploadList={false}
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                onChange={handleChangeImage}
+                beforeUpload={beforeUpload}
+                accept="image/png, image/svg+xml, image/jpeg, image/jpg"
+              >
+                {imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt="avatar"
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                ) : (
+                  <UploadOutlined />
+                )}
+              </Upload>
             </Form.Item>
             <div style={{ textAlign: "center" }}>
               <Button htmlType="submit" className="savechanges-btn">

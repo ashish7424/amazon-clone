@@ -7,8 +7,8 @@ function BillingDetails() {
   const location = useLocation();
   const [form] = Form.useForm();
   const item = useSelector((state) => state.Cart.userCart);
-  const data = useSelector((state) => state.Cart.userDetails);
-  console.log(data);
+  const data = useSelector((state) => state.user.userDetails);
+
   const columns = [
     {
       title: "Product",
@@ -21,20 +21,23 @@ function BillingDetails() {
       key: "total",
     },
   ];
+
   const { Option } = Select;
-  const onplaceorder = (values) => {
+
+  const handlePlaceOrder = (values) => {
     console.log("values", values);
     form.resetFields();
   };
+
   return (
-    <div className="main-div">
+    <div>
       <div className="bill-details">Billing Details :</div>
       <br />
       <br />
       <div className="billing-form">
         <div>
           <Form
-            onFinish={onplaceorder}
+            onFinish={handlePlaceOrder}
             className="form-data"
             form={form}
             labelCol={{
@@ -65,7 +68,7 @@ function BillingDetails() {
               label="Country / Region "
               rules={[{ required: true }]}
             >
-              <Select placeholder="Select Your Role" allowClear>
+              <Select placeholder="Select Country" allowClear>
                 <Option value="india">India</Option>
               </Select>
             </Form.Item>
