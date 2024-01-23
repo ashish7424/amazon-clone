@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Image, Typography } from "antd";
-import WatchIcon from "assets/svg/WatchIcon";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import WatchIcon from "assets/svg/WatchIcon";
 import { routeNames } from "constants/pageRoutes.constants";
 
 const { Text } = Typography;

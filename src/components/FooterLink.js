@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { routeNames } from 'constants/pageRoutes.constants';
+import React from "react";
+import { Link } from "react-router-dom";
+import { routeNames } from "constants/pageRoutes.constants";
 
 const FooterLink = () => {
   return (
     <div>
-       <div className="footer">
+      <div className="footer">
         <Link className="footer-link" to={routeNames.Condition}>
           Conditions of Use
         </Link>
@@ -21,6 +21,6 @@ const FooterLink = () => {
       </div>
     </div>
   );
-}
+};
 
 export default FooterLink;

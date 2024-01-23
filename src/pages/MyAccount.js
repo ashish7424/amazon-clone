@@ -16,7 +16,7 @@ function MyAccount() {
       <div className="account">
         <p>Account Details :</p>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="flex-justify-center">
         <div className="myaccount-box">
           <div>
             <div className="account-img">

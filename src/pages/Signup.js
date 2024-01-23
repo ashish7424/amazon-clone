@@ -1,4 +1,3 @@
-import "./main.css";
 import React from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import { CaretRightOutlined } from "@ant-design/icons";
 import FooterLink from "components/FooterLink";
 import { routeNames } from "constants/pageRoutes.constants";
 import { setUserList } from "store/User/slice";
+import "./main.css";
 
 const { Title } = Typography;
 

@@ -1,4 +1,3 @@
-import "./main.css";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +6,7 @@ import { Button, Form, Input, Typography } from "antd";
 import FooterLink from "components/FooterLink";
 import { routeNames } from "constants/pageRoutes.constants";
 import { setIsLogin, setUserDetails } from "store/User/slice";
+import "./main.css";
 
 const { Title } = Typography;
 
@@ -44,7 +44,7 @@ function Signin() {
         <div className="auth-sub-container">
           <div>
             <Title level={2} className="title">
-              LOGIN{" "}
+              LOGIN
             </Title>
             <div className="form2">
               <div className="signin-form">
@@ -68,7 +68,6 @@ function Signin() {
                   >
                     <Input placeholder=" Email Address..." />
                   </Form.Item>
-                  <br />
                   <Form.Item
                     className="signin-label"
                     label=" Password "
@@ -81,7 +80,6 @@ function Signin() {
                   >
                     <Input.Password placeholder=" Password..." />
                   </Form.Item>
-                  <br />
                   <Button
                     className="signin-cntn-btn"
                     htmlType="submit"
@@ -90,7 +88,6 @@ function Signin() {
                     Continue
                   </Button>
                 </Form>
-                <br />
                 <div className="terms">
                   By continuing, you agree to Amazon's
                   <Link className="footer-link" to={routeNames.Condition}>

@@ -22,7 +22,7 @@ const Layouts = () => {
 
 const LayoutsV1 = () => {
   return (
-    <Layout className="main-layout">
+    <Layout>
       <HeaderV2 />
       <Content className="outlet-sub-main">
         <Outlet />
