@@ -28,7 +28,7 @@ const SingleProductDetail = () => {
         />
       </div>
       {productDetail && (
-        <div className="single-product ">
+        <div className="single-product">
           <div>
             <Image
               src={productDetail.image}

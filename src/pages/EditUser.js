@@ -41,7 +41,7 @@ function EditUser() {
     toast.success("Details Updated Successfully");
     navigate(routeNames.MyAccount);
   };
-  
+
   const handleBack = () => {
     navigate(routeNames.MyAccount);
   };
@@ -113,13 +113,7 @@ function EditUser() {
                 accept="image/png, image/svg+xml, image/jpeg, image/jpg"
               >
                 {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="avatar"
-                    style={{
-                      width: "100%",
-                    }}
-                  />
+                  <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
                 ) : (
                   <UploadOutlined />
                 )}

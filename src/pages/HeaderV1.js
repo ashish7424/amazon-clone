@@ -1,4 +1,3 @@
-import "./main.css";
 import React from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,6 +11,7 @@ import {
 import amazon from "assets/png/amazon-removebg-preview.png";
 import { routeNames } from "constants/pageRoutes.constants";
 import { setIsLogin } from "store/User/slice";
+import "./main.css";
 
 function HeaderV1() {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function HeaderV1() {
     {
       label: (
         <div className="profile-setting" onClick={handleNavigateAccount}>
-          <UserOutlined style={{ marginRight: "5px" }} />
+          <UserOutlined />
           My Account
         </div>
       ),
@@ -43,7 +43,7 @@ function HeaderV1() {
     {
       label: (
         <div className="profile-setting" onClick={handleLogOut}>
-          <LogoutOutlined style={{ marginRight: "5px" }} />
+          <LogoutOutlined />
           Log out
         </div>
       ),
@@ -53,7 +53,7 @@ function HeaderV1() {
   return (
     <Row className="header">
       {LoggedIn ? (
-        <Col span={3} style={{ display: "flex", justifyContent: "center" }}>
+        <Col span={3} className="flex-justify-center">
           <Dropdown
             className="dropdown-icon"
             menu={{

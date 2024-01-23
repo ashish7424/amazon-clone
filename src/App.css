@@ -1,6 +1,10 @@
 .App {
   text-align: center;
 }
+.flex-justify-center {
+  display: flex;
+  justify-content: center;
+}
 
 body {
   margin: 0;

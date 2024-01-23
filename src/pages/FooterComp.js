@@ -1,9 +1,9 @@
-import "./main.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import amazon from "assets/png/amazon-removebg-preview.png";
 import { SocialData, footerData } from "constants/data.constants";
+import "./main.css";
 
 function FooterComp() {
   return (

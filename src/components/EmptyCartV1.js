@@ -4,24 +4,30 @@ import { Button } from "antd";
 import CartIcon from "assets/svg/CartIcon";
 import { routeNames } from "constants/pageRoutes.constants";
 
-const EmptyCart = () => {
+const EmptyCartV1 = () => {
   const navigate = useNavigate();
 
   return (
     <div className="empty-cart">
       <div className="empty-content">
-        <div>
-          <CartIcon/>
-        </div>
+        <CartIcon />
         <div>
           <h2 className="empty-cart-title">Your Amazon Cart is empty</h2>
           <Button
             className="shop-now-btn"
             onClick={() => {
-              navigate(routeNames.Home);
+              navigate(routeNames.Signup);
             }}
           >
-            Shop Now
+            Register Now
+          </Button>
+          <Button
+            className="shop-now-btn"
+            onClick={() => {
+              navigate(routeNames.Login);
+            }}
+          >
+            Log in to your account
           </Button>
         </div>
       </div>
@@ -29,4 +35,4 @@ const EmptyCart = () => {
   );
 };
 
-export default EmptyCart;
+export default EmptyCartV1;
