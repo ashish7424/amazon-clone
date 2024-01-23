@@ -1,36 +1,18 @@
-import user from "../PNG/user.png";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Image, Row } from "antd";
 import { useSelector } from "react-redux";
-import { db } from "../Firebase/Firebase";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import user from "assets/png/user.png";
 
 function MyAccount() {
   const navigate = useNavigate();
-  const [userdetails, setUserDetails] = useState("");
-  const userid = useSelector((state) => state.Cart.userId);
+  const userdetails = useSelector((state) => state.user.userDetails);
 
-  useEffect(() => {
-    getSingleUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
-
-  const getSingleUser = async () => {
-    const docRef = doc(db, "user", userid);
-    const snapshot = await getDoc(docRef);
-    console.log("snapshot", snapshot.data());
-    setUserDetails(snapshot.data());
+  const onEditDetails = (userdetails) => {
+    navigate(`/edituser/${userdetails.id}`);
   };
 
-  const onImageSet=()=>{
-
-  }
-  const onEditDetails = (id) => {
-    navigate(`/edituser/${id}`);
-  };
   return (
-    <div className="main-div">
+    <div>
       <div className="account">
         <p>Account Details :</p>
       </div>
@@ -38,12 +20,19 @@ function MyAccount() {
         <div className="myaccount-box">
           <div>
             <div className="account-img">
-              <img  src={user} alt="user" width={200} height={200} onClick={onImageSet} />
+              <Image
+                src={userdetails.image ? userdetails.image : user}
+                alt=""
+                width={200}
+                height={200}
+                className="profile-img"
+                preview={false}
+              />
             </div>
             <div className="account-img">
               <Button
                 className="edit-icon"
-                onClick={() => onEditDetails(userid)}
+                onClick={() => onEditDetails(userdetails)}
               >
                 Edit Details
               </Button>
@@ -68,8 +57,8 @@ function MyAccount() {
             </Row>
             <Row className="account-last-col" justify="space-between">
               <Col>
-                <Col className="account-col">Mobile :</Col>
-                <Col className="account--col">{userdetails.mobile}</Col>
+                <Col className="account-col">Password :</Col>
+                <Col className="account--col">{userdetails.password}</Col>
               </Col>
             </Row>
           </div>

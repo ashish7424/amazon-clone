@@ -1,59 +1,47 @@
-import "./main.css";
 import React from "react";
-import { Button, Col, Row } from "antd";
-import cartitem from "../PNG/cartimg.svg";
-import { useNavigate } from "react-router";
-import { removeCart } from "../Store/CartSlice";
-import { DeleteOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { Button, Col, Row } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import cartitem from "assets/png/cartimg.svg";
+import { routeNames } from "constants/pageRoutes.constants";
+import EmptyCart from "components/EmptyCart";
+import { removeCart } from "store/CartSlice/CartSlice";
+import "./main.css";
 
 function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const addToCart = useSelector((state) => state.Cart.userCart);
-  const isLoggedin = useSelector((state) => state.Cart.isLogin);
+  const isLoggedin = useSelector((state) => state.user.isLogin);
 
-  const removedata = (index) => {
+  const removeCartItem = (index) => {
     dispatch(removeCart(index));
   };
+
   var element = 0;
   for (let i = 0; i < addToCart.length; i++) {
     element = element + addToCart[i].price;
   }
   const total = element.toFixed(2);
+
   const proceedToBuy = () => {
     if (isLoggedin) {
-      navigate("/billingdetails", { state: { element: total } });
-    }else{
-      toast.warning("Please Login!")
-      navigate("/signin" );
+      navigate(routeNames.BillingDetails, { state: { element: total } });
+    } else {
+      toast.warning("Please Login!");
+      navigate(routeNames.Login);
     }
   };
+
   return (
-    <div className="cartproducts">
-      <div className="main-div">
+    <div className="cartproducts ">
+      <div className="main-cart">
         <div className="cart-title">Cart :</div>
         <br />
         {addToCart.length === 0 && isLoggedin ? (
-          <div className="empty-cart">
-            <div className="empty-content">
-              <div>
-                <img src={cartitem} alt="cart-item" width={300} height={300} />
-              </div>
-              <div>
-                <h2 className="empty-cart-title">Your Amazon Cart is empty</h2>
-                <Button
-                  className="shop-now-btn"
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Shop Now
-                </Button>
-              </div>
-            </div>
-          </div>
+          <EmptyCart />
         ) : addToCart.length === 0 && !isLoggedin ? (
           <div className="empty-cart">
             <div className="empty-content">
@@ -65,7 +53,7 @@ function Cart() {
                 <Button
                   className="shop-now-btn"
                   onClick={() => {
-                    navigate("/signup");
+                    navigate(routeNames.Signup);
                   }}
                 >
                   Register Now
@@ -73,7 +61,7 @@ function Cart() {
                 <Button
                   className="shop-now-btn"
                   onClick={() => {
-                    navigate("/signin");
+                    navigate(routeNames.Login);
                   }}
                 >
                   Log in to your account
@@ -103,7 +91,7 @@ function Cart() {
                   </Col>
                   <Col>
                     <DeleteOutlined
-                      onClick={() => removedata(index)}
+                      onClick={() => removeCartItem(index)}
                       className="delete-icon"
                     />
                   </Col>
