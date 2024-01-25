@@ -51,7 +51,8 @@ function Cart() {
                   <Row
                     className="cartitem"
                     style={{
-                      borderBottom: index < addToCart.length - 1 ? "1px solid #42444a" : "",
+                      borderBottom:
+                        index < addToCart.length - 1 ? "1px solid #42444a" : "",
                     }}
                     gutter={[20, 20]}
                   >

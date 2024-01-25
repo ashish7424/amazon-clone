@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Button, Col, Image, Row, Spin, Typography } from "antd";
 import { movieCategories } from "constants/data.constants";
 import { routeNames } from "constants/pageRoutes.constants";
-import { setViewMovieDetail } from "store/MiniTV/slice";
 import { getMovies } from "store/MiniTV/actions";
+import { setViewMovieDetail } from "store/MiniTV/slice";
 
 const { Text } = Typography;
 

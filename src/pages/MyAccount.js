@@ -1,6 +1,6 @@
-import { Button, Col, Image, Row } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Button, Col, Image, Row } from "antd";
 import user from "assets/png/user.png";
 
 function MyAccount() {

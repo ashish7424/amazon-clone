@@ -11,7 +11,7 @@ const EmptyCart = () => {
     <div className="empty-cart">
       <div className="empty-content">
         <div>
-          <CartIcon/>
+          <CartIcon />
         </div>
         <div>
           <h2 className="empty-cart-title">Your Amazon Cart is empty</h2>

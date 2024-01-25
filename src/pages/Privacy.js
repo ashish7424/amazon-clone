@@ -1,6 +1,6 @@
 import React from "react";
-import { privacyData } from "constants/data.constants";
 import ServiceHeader from "components/ServiceHeader";
+import { privacyData } from "constants/data.constants";
 
 function Privacy() {
   return (
