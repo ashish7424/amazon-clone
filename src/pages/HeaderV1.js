@@ -50,6 +50,7 @@ function HeaderV1() {
       key: "1",
     },
   ];
+
   return (
     <Row className="header">
       {LoggedIn ? (

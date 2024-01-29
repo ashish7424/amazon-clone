@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Col, Image, Row, Spin, Typography } from "antd";
+import { filter, isEmpty } from "lodash";
+import { Button, Col, Image, Input, Row, Spin, Typography } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { movieCategories } from "constants/data.constants";
 import { routeNames } from "constants/pageRoutes.constants";
 import { getMovies } from "store/MiniTV/actions";
@@ -15,6 +17,7 @@ const MiniTV = () => {
   const { movies, isLoadingMovies } = useSelector((state) => state.movies);
   const [miniTVMovies, setMiniTVMovies] = useState([]);
   const [moviesCat, setMoviesCat] = useState("");
+  const [searchMovies, setSearchMovies] = useState("");
 
   useEffect(() => {
     dispatch(getMovies());
@@ -40,6 +43,17 @@ const MiniTV = () => {
     }
   };
 
+  const handleSearchMovies = (e) => {
+    setSearchMovies(e.target.value);
+  };
+
+  const filterMovies = filter(miniTVMovies, (item) => {
+    if (searchMovies && searchMovies.length >= 1) {
+      return item.name.toLowerCase().includes(searchMovies.toLowerCase());
+    }
+    return miniTVMovies;
+  });
+
   return (
     <div>
       {isLoadingMovies ? (
@@ -48,6 +62,16 @@ const MiniTV = () => {
         </div>
       ) : (
         <div className="movie-desc">
+          <div className="search-movies-main">
+            <Input
+              type="search"
+              value={searchMovies}
+              placeholder="Search Movies..."
+              className="search-input"
+              onChange={handleSearchMovies}
+              prefix={<SearchOutlined />}
+            />
+          </div>
           <div className="catagories-main">
             {movieCategories.map((catagories, index) => {
               return (
@@ -65,13 +89,15 @@ const MiniTV = () => {
           </div>
           <div>
             <Text className="trending-label">
-              {moviesCat && moviesCat !== "All"
+              {!isEmpty(searchMovies)
+                ? `Result For : ${searchMovies}`
+                : moviesCat && moviesCat !== "All"
                 ? `${moviesCat} Movies`
                 : "Trending on miniTV"}
             </Text>
           </div>
           <Row gutter={[30, 40]} justify="space-evenly" className="minitv-main">
-            {miniTVMovies.map((movieData, i) => {
+            {filterMovies.map((movieData, i) => {
               return (
                 <Col
                   key={i}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { filter } from "lodash";
+import { filter, isEmpty } from "lodash";
 import {
   Button,
   Card,
@@ -74,10 +74,11 @@ function Products() {
     }
   };
 
-  const addcart = (item) => {
+  const handleAddToCart = (item) => {
     dispatch(addCart(item));
   };
-  const SearchProduct = (e) => {
+
+  const SearchProductByCategory = (e) => {
     setFilterText(e.target.value);
   };
 
@@ -98,10 +99,7 @@ function Products() {
           }}
           trigger={["click"]}
         >
-          <Button
-            className="categories-btn"
-            style={{ textTransform: "capitalize" }}
-          >
+          <Button className="categories-btn">
             {data || "Categories"}
             <DownOutlined />
           </Button>
@@ -110,12 +108,12 @@ function Products() {
           placeholder="Search Product..."
           className="search-input"
           value={filterText}
-          onChange={SearchProduct}
+          onChange={SearchProductByCategory}
           prefix={<SearchOutlined />}
         />
       </div>
 
-      {data !== "all" && data !== "" ? (
+      {data !== "all" && !isEmpty(data) ? (
         <div>
           <label className="dropdown-key">{data}</label>
           <p className="result">
@@ -135,7 +133,7 @@ function Products() {
           {productDataFilter &&
             productDataFilter.map((item, index) => {
               return (
-                <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={12} md={12}>
+                <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={24} md={12}>
                   <Card
                     hoverable
                     title={item.title}
@@ -170,7 +168,7 @@ function Products() {
                     <Col>(Reviews : {item.rating.count})</Col>
                     <br />
                     <Button
-                      onClick={() => addcart(item)}
+                      onClick={() => handleAddToCart(item)}
                       className="add-cart-btn"
                     >
                       Add to Cart
