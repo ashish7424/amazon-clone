@@ -9,9 +9,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fefbf3;
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     width: 800px;
-  }
+  } */
 }

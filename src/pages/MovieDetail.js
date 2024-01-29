@@ -24,71 +24,74 @@ const MovieDetail = () => {
         />
       </div>
       {viewMovieDetail && (
-        <div className="single-movie">
-          <div className="movie-detail-col">
-            <Col>
-              <Text className="movie-title">
-                {viewMovieDetail.name} (
-                {viewMovieDetail.premiered.split("-")[0]})
-              </Text>
-            </Col>
-            <Col>
-              <Text className="movie-summary">Language : </Text>
-              <Text className="movie-summary">{viewMovieDetail.language}</Text>
-            </Col>
-            <Col>
-              <Text className="movie-summary">Runtime : </Text>
-              <Text className="movie-summary">
-                {viewMovieDetail.runtime} min
-              </Text>
-            </Col>
-            <Col>
-              <Button
-                type="primary"
-                href={viewMovieDetail.url}
-                className="watch-btn"
-                icon={<WatchIcon />}
-              >
-                Watch More Details
-              </Button>
-            </Col>
-            <Col>
-              <p
-                className="movie-summary-main"
-                dangerouslySetInnerHTML={{
-                  __html: viewMovieDetail.summary,
-                }}
+        <>
+          <Col style={{ textAlign: "center" }}>
+            <Text className="movie-title">
+              {viewMovieDetail.name} ({viewMovieDetail.premiered.split("-")[0]})
+            </Text>
+          </Col>
+          <div className="single-movie">
+            <div className="movie-detail-col">
+              <Col>
+                <Text className="movie-summary">Language : </Text>
+                <Text className="movie-summary">
+                  {viewMovieDetail.language}
+                </Text>
+              </Col>
+              <Col>
+                <Text className="movie-summary">Runtime : </Text>
+                <Text className="movie-summary">
+                  {viewMovieDetail.runtime} min
+                </Text>
+              </Col>
+              <Col>
+                <Button
+                  type="primary"
+                  href={viewMovieDetail.url}
+                  className="watch-btn"
+                  icon={<WatchIcon />}
+                >
+                  Watch More Details
+                </Button>
+              </Col>
+              <Col>
+                <p
+                  className="movie-summary-main"
+                  dangerouslySetInnerHTML={{
+                    __html: viewMovieDetail.summary,
+                  }}
+                />
+              </Col>
+              <Col>
+                <Text className="movie-detail-label">IMDB Rating : </Text>
+                <Text className="movie-detail">
+                  {viewMovieDetail.rating.average} / 10
+                </Text>
+              </Col>
+              <Col>
+                <Text className="movie-detail-label">genres : </Text>
+                {viewMovieDetail.genres.map((gen, i) => {
+                  return (
+                    <Text key={gen + i} className="movie-detail">
+                      {gen}
+                      {i < viewMovieDetail.genres.length - 1 ? " , " : ""}
+                    </Text>
+                  );
+                })}
+              </Col>
+            </div>
+            <div className="movie-img">
+              <Image
+                src={viewMovieDetail.image.medium}
+                alt={viewMovieDetail.category}
+                width={400}
+                height={400}
+                className="movie-container"
+                preview={false}
               />
-            </Col>
-            <Col>
-              <Text className="movie-detail">IMDB Rating : </Text>
-              <Text className="movie-detail">
-                {viewMovieDetail.rating.average} / 10
-              </Text>
-            </Col>
-            <Col>
-              <Text className="movie-detail">genres : </Text>
-              {viewMovieDetail.genres.map((gen, i) => {
-                return (
-                  <Text key={gen + i} className="movie-detail">
-                    {gen}
-                    {i < viewMovieDetail.genres.length - 1 ? " , " : ""}
-                  </Text>
-                );
-              })}
-            </Col>
+            </div>
           </div>
-          <div>
-            <Image
-              src={viewMovieDetail.image.medium}
-              alt={viewMovieDetail.category}
-              width={400}
-              height={400}
-              className="movie-container"
-              preview={false}
-            />
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
