@@ -298,12 +298,15 @@
 
 /* My Account */
 
+.account-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .account {
   font-family: Cinzel;
   text-align: center;
-  width: 800px;
-  font-size: clamp(2rem, 4vw, 2.4rem);
-  font-weight: 400;
+  font-size: 38px;
 }
 .myaccount-box {
   width: 400px;
@@ -318,7 +321,6 @@
   cursor: pointer;
 }
 .account-details {
-  width: 400px;
   border-bottom: 2px solid var(--secondary);
   padding: 15px 15px;
 }
@@ -336,7 +338,6 @@
   font-weight: 700;
 }
 .account-subcol {
-  text-transform: capitalize;
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -392,12 +393,10 @@
 }
 .movie-image {
   border-radius: 20px;
+  transition: all 0.4s ease-in-out;
 }
 .movie-image:hover {
-  /* -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1); */
-  transform: scale(1.1);
-  transition: all 0.2s ease-in;
+  transform: scale(1.15);
 }
 
 /* Products   */
@@ -681,7 +680,15 @@
 .single-product-main {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
+}
+.product-title-main {
+  display: flex;
+  justify-content: center;
+}
+.product-title {
+  font-size: 30px;
+  font-weight: 600;
 }
 .single-product {
   display: flex;

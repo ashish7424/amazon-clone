@@ -27,6 +27,9 @@ const SingleProductDetail = () => {
           onClick={() => navigate(routeNames.Home)}
         />
       </div>
+      <div className="product-title-main">
+        <Text className="product-title">{productDetail.title}</Text>
+      </div>
       {productDetail && (
         <div className="single-product">
           <div>

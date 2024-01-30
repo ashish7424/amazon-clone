@@ -82,6 +82,11 @@ function Products() {
     setFilterText(e.target.value);
   };
 
+  const getSingleProductDetail = (item) => {
+    dispatch(setSingleDetails(item));
+    navigate(routeNames.SingleProduct);
+  };
+
   const productDataFilter = filter(products, (item) => {
     if (filterText && filterText.length >= 1) {
       return shortLabel(item.category).includes(shortLabel(filterText));
@@ -142,10 +147,7 @@ function Products() {
                         alt="example"
                         className="product-img"
                         src={item.image}
-                        onClick={() => {
-                          dispatch(setSingleDetails(item));
-                          navigate(routeNames.SingleProduct);
-                        }}
+                        onClick={() => getSingleProductDetail(item)}
                       />
                     }
                   >
@@ -155,7 +157,7 @@ function Products() {
                     </Col>
                     <Col>
                       <Text className="card-span">Price : </Text>
-                      {item?.price || "0"} ₹
+                      {item?.price} ₹
                     </Col>
                     <Col>
                       <Rate
