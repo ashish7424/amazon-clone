@@ -70,14 +70,9 @@ const MovieDetail = () => {
               </Col>
               <Col>
                 <Text className="movie-detail-label">genres : </Text>
-                {viewMovieDetail.genres.map((gen, i) => {
-                  return (
-                    <Text key={gen + i} className="movie-detail">
-                      {gen}
-                      {i < viewMovieDetail.genres.length - 1 ? " , " : ""}
-                    </Text>
-                  );
-                })}
+                <Text className="movie-detail">
+                  {viewMovieDetail.genres.join()}
+                </Text>
               </Col>
             </div>
             <div className="movie-img">
