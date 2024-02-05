@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
+import "./styles.css"
 
 const AccountDetail = ({ label, userDetail, classname }) => {
   return (

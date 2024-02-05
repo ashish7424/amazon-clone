@@ -1,28 +1,42 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { Button, Form, Input, Select, Table } from "antd";
+import { Button, Form, Input, Select, Table, Typography } from "antd";
+
+const { Text } = Typography;
+const { Option } = Select;
 
 function BillingDetails() {
-  const location = useLocation();
   const [form] = Form.useForm();
-  const item = useSelector((state) => state.Cart.userCart);
-  const data = useSelector((state) => state.user.userDetails);
+  const cartItem = useSelector((state) => state.Cart.userCart);
+  const userData = useSelector((state) => state.user.userDetails);
+  const cartTotal = useSelector((state) => state.Cart.cartTotal);
 
   const columns = [
     {
       title: "Product",
+      width: "50%",
       dataIndex: "title",
       key: "product",
     },
     {
-      title: "Total",
+      title: "Price",
       dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Items",
+      align: "center",
+      dataIndex: "count",
+      key: "items",
+    },
+    {
+      title: "Total",
       key: "total",
+      render: (record) => {
+        return <Text>₹ {(record.price * record.count).toFixed(2)}</Text>;
+      },
     },
   ];
-
-  const { Option } = Select;
 
   const handlePlaceOrder = (values) => {
     console.log("values", values);
@@ -36,16 +50,12 @@ function BillingDetails() {
         <Form
           onFinish={handlePlaceOrder}
           form={form}
-          labelCol={{
-            span: 6,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 14 }}
         >
           <Form.Item
             name="firstname"
-            initialValue={data.firstname}
+            initialValue={userData.firstname}
             label="First Name"
             rules={[{ required: true }]}
           >
@@ -53,7 +63,7 @@ function BillingDetails() {
           </Form.Item>
           <Form.Item
             name="lastname"
-            initialValue={data.lastname}
+            initialValue={userData.lastname}
             label="Last Name"
             rules={[{ required: true }]}
           >
@@ -95,7 +105,7 @@ function BillingDetails() {
 
           <Form.Item
             name="mobile"
-            initialValue={data.mobile}
+            initialValue={userData.mobile}
             label="Mobile number"
             rules={[
               { required: true, message: "Please input your phone number!" },
@@ -104,14 +114,12 @@ function BillingDetails() {
             <Input
               placeholder="Mobile number"
               addonBefore="+91"
-              style={{
-                width: "100%",
-              }}
+              style={{ width: "100%" }}
             />
           </Form.Item>
           <Form.Item
             name="email"
-            initialValue={data.email}
+            initialValue={userData.email}
             label="Email(Optional)"
             rules={[
               {
@@ -125,17 +133,16 @@ function BillingDetails() {
           <div className="bill-container">
             <div className="order-details">Your Order :</div>
             <div className="flex-justify-center">
-              <div style={{ width: "500px" }}>
+              <div style={{ width: "700px" }}>
                 <Table
                   columns={columns}
-                  dataSource={item}
+                  dataSource={cartItem}
                   pagination={false}
                   rowKey={(record) => record.id}
                   bordered
                   footer={() => (
                     <div className="bill-total">
-                      <p className="order-total">Total </p> ₹
-                      {location.state.element}
+                      <p className="order-total">Total </p> ₹{cartTotal}
                     </div>
                   )}
                 />

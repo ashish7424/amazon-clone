@@ -2,27 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { filter, isEmpty } from "lodash";
-import {
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  Input,
-  Rate,
-  Row,
-  Typography,
-} from "antd";
+import { Button, Dropdown, Input, Row, message } from "antd";
 import {
   DownOutlined,
   LoadingOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import ProductCard from "components/ProductCard";
 import { routeNames } from "constants/pageRoutes.constants";
 import { addCart, setSingleDetails } from "store/CartSlice/CartSlice";
 import { getProducts, getProductsByCategories } from "store/CartSlice/actions";
 import { shortLabel } from "utils/utils";
-
-const { Text } = Typography;
 
 function Products() {
   const navigate = useNavigate();
@@ -65,7 +55,7 @@ function Products() {
     setProducts(Products);
   }, [Products]);
 
-  const onClick = async ({ key }) => {
+  const onClick = ({ key }) => {
     setData(key);
     if (key === "all") {
       dispatch(getProducts());
@@ -76,6 +66,7 @@ function Products() {
 
   const handleAddToCart = (item) => {
     dispatch(addCart(item));
+    message.success("Added to Cart")
   };
 
   const SearchProductByCategory = (e) => {
@@ -95,15 +86,9 @@ function Products() {
   });
 
   return (
-    <div>
+    <div className="product-main">
       <div className="product-filter">
-        <Dropdown
-          menu={{
-            items,
-            onClick,
-          }}
-          trigger={["click"]}
-        >
+        <Dropdown menu={{ items, onClick }} trigger={["click"]}>
           <Button className="categories-btn">
             {data || "Categories"}
             <DownOutlined />
@@ -118,65 +103,29 @@ function Products() {
         />
       </div>
 
-      {data !== "all" && !isEmpty(data) ? (
+      {data !== "all" && !isEmpty(data) && (
         <div>
           <label className="dropdown-key">{data}</label>
           <p className="result">
             {`Showing ${products?.length} Results :(${data})`}
           </p>
         </div>
-      ) : (
-        ""
       )}
 
       {isLoading ? (
         <div className="spinner">
-          <LoadingOutlined />
+          <LoadingOutlined style={{ color: "#232f3e" }} />
         </div>
       ) : (
-        <Row gutter={[20, 20]} className="cards">
+        <Row gutter={[20, 20]}>
           {productDataFilter &&
-            productDataFilter.map((item, index) => {
+            productDataFilter.map((item) => {
               return (
-                <Col key={index} xl={6} xxl={6} sm={12} lg={8} xs={24} md={12}>
-                  <Card
-                    hoverable
-                    title={item.title}
-                    cover={
-                      <img
-                        alt="example"
-                        className="product-img"
-                        src={item.image}
-                        onClick={() => getSingleProductDetail(item)}
-                      />
-                    }
-                  >
-                    <Col>
-                      <Text className="card-span">Category : </Text>
-                      {item?.category}
-                    </Col>
-                    <Col>
-                      <Text className="card-span">Price : </Text>
-                      {item?.price} ₹
-                    </Col>
-                    <Col>
-                      <Rate
-                        allowHalf
-                        defaultValue={item.rating.rate}
-                        disabled
-                      />
-                      {item.rating.rate}
-                    </Col>
-                    <Col>(Reviews : {item.rating.count})</Col>
-                    <br />
-                    <Button
-                      onClick={() => handleAddToCart(item)}
-                      className="add-cart-btn"
-                    >
-                      Add to Cart
-                    </Button>
-                  </Card>
-                </Col>
+                <ProductCard
+                  item={item}
+                  getSingleProductDetail={getSingleProductDetail}
+                  handleAddToCart={handleAddToCart}
+                />
               );
             })}
         </Row>

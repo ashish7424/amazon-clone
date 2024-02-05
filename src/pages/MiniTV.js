@@ -29,7 +29,7 @@ const MiniTV = () => {
     // eslint-disable-next-line
   }, []);
 
-  const filterShowsByGenre = (miniTVMovies, genre) => {
+  const filterShowsByGenres = (miniTVMovies, genre) => {
     return miniTVMovies.filter((show) => show.genres.includes(genre));
   };
 
@@ -38,7 +38,7 @@ const MiniTV = () => {
     if (catagories === "All") {
       setMiniTVMovies(movies);
     } else {
-      const actionShows = filterShowsByGenre(movies, catagories);
+      const actionShows = filterShowsByGenres(movies, catagories);
       setMiniTVMovies(actionShows);
     }
   };
@@ -77,8 +77,11 @@ const MiniTV = () => {
               return (
                 <Button
                   type="primary"
-                  className="movie-categories-btn"
-                  style={{ opacity: moviesCat === catagories ? 1 : 0.5 }}
+                  className={
+                    moviesCat === catagories
+                      ? "cat-opacity movie-categories-btn"
+                      : "movie-categories-btn"
+                  }
                   key={index}
                   onClick={() => onButtonClick(catagories)}
                 >
