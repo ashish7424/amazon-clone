@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Typography } from "antd";
+import AuthFooter from "components/AuthFooter";
 import FooterLink from "components/FooterLink";
 import { routeNames } from "constants/pageRoutes.constants";
 import { setIsLogin, setUserDetails } from "store/User/slice";
@@ -29,7 +30,7 @@ function Signin() {
       dispatch(setIsLogin(true));
       toast.success("Login Successfully");
       dispatch(setUserDetails(filteredData));
-      navigate("/");
+      navigate(routeNames.Home);
     } else {
       toast.error("Invalid Email or Password");
       form.resetFields();
@@ -48,13 +49,7 @@ function Signin() {
             </Title>
             <div className="form2">
               <div className="signin-form">
-                <Form
-                  form={form}
-                  onFinish={handleLogin}
-                  labelCol={{
-                    span: 6,
-                  }}
-                >
+                <Form form={form} onFinish={handleLogin} labelCol={{ span: 6 }}>
                   <Form.Item
                     className="signin-label"
                     label="Email"
@@ -66,11 +61,11 @@ function Signin() {
                       },
                     ]}
                   >
-                    <Input placeholder=" Email Address..." />
+                    <Input placeholder="Email Address..." />
                   </Form.Item>
                   <Form.Item
                     className="signin-label"
-                    label=" Password "
+                    label="Password"
                     name="password"
                     rules={[
                       {
@@ -78,7 +73,7 @@ function Signin() {
                       },
                     ]}
                   >
-                    <Input.Password placeholder=" Password..." />
+                    <Input.Password placeholder="Password..." />
                   </Form.Item>
                   <Button
                     className="signin-cntn-btn"
@@ -88,17 +83,7 @@ function Signin() {
                     Continue
                   </Button>
                 </Form>
-                <div className="terms">
-                  By continuing, you agree to Amazon's
-                  <Link className="footer-link" to={routeNames.Condition}>
-                    {" "}
-                    Conditions of Use
-                  </Link>
-                  and{" "}
-                  <Link className="footer-link" to={routeNames.Privacy}>
-                    Privacy Notice.
-                  </Link>
-                </div>
+                <AuthFooter footerLabel="By continuing, you agree to Amazon's" />
               </div>
             </div>
             <div className="divider-break">

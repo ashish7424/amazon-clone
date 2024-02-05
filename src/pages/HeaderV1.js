@@ -19,6 +19,7 @@ function HeaderV1() {
   const addToCart = useSelector((state) => state.Cart.userCart);
   const Details = useSelector((state) => state.user.userDetails);
   const LoggedIn = useSelector((state) => state.user.isLogin);
+  const counter = addToCart.reduce((acc, el) => acc + el.count, 0);
 
   const handleLogOut = () => {
     navigate(routeNames.Login);
@@ -57,9 +58,7 @@ function HeaderV1() {
         <Col span={3} className="flex-justify-center">
           <Dropdown
             className="dropdown-icon"
-            menu={{
-              items,
-            }}
+            menu={{ items }}
             trigger={["click"]}
           >
             {Details.image ? (
@@ -111,7 +110,7 @@ function HeaderV1() {
       <Col span={2}>
         <Link to={routeNames.Cart}>
           <ShoppingCartOutlined style={{ fontSize: "50px", color: "#fff" }} />
-          <label className="itemnumber">{addToCart.length}</label>
+          <label className="itemnumber">{counter}</label>
         </Link>
       </Col>
     </Row>

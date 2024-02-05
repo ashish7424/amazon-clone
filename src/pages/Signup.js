@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Typography } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
+import AuthFooter from "components/AuthFooter";
 import FooterLink from "components/FooterLink";
 import { routeNames } from "constants/pageRoutes.constants";
 import { setUserList } from "store/User/slice";
@@ -30,6 +31,15 @@ function Signup() {
     }
   };
 
+  const validatePassword = (_, value) => {
+    if (value.length < 6) {
+      return Promise.reject(
+        new Error("Password must be at least 6 characters long.")
+      );
+    }
+    return Promise.resolve();
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <div className="auth-container">
@@ -39,9 +49,8 @@ function Signup() {
               <Form
                 form={form}
                 onFinish={handleSignup}
-                labelCol={{
-                  span: 6,
-                }}
+                labelCol={{ span: 6 }}
+                className="signup-form-main"
               >
                 <Title level={3}> Create Your Account</Title>
                 <Form.Item
@@ -49,16 +58,15 @@ function Signup() {
                   label="First Name"
                   rules={[{ required: true }]}
                 >
-                  <Input placeholder=" First Name" />
+                  <Input placeholder="First Name" />
                 </Form.Item>
                 <Form.Item
                   name="lastname"
                   label="Last Name"
                   rules={[{ required: true }]}
                 >
-                  <Input placeholder=" Last Name" />
+                  <Input placeholder="Last Name" />
                 </Form.Item>
-
                 <Form.Item
                   name="mobile"
                   label="Mobile"
@@ -72,9 +80,7 @@ function Signup() {
                   <Input
                     placeholder="Mobile number"
                     addonBefore="+91"
-                    style={{
-                      width: "100%",
-                    }}
+                    style={{ width: "100%" }}
                   />
                 </Form.Item>
                 <Form.Item
@@ -88,7 +94,7 @@ function Signup() {
                     },
                   ]}
                 >
-                  <Input placeholder=" Email Address" />
+                  <Input placeholder="Email Address" />
                 </Form.Item>
                 <Form.Item
                   name="password"
@@ -96,7 +102,7 @@ function Signup() {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      validator: validatePassword,
                     },
                   ]}
                 >
@@ -113,27 +119,15 @@ function Signup() {
                   </Button>
                 </Form.Item>
               </Form>
-              <div>
+              <div className="flex-gap">
                 Already have an account?
-                <Link to={routeNames.Login} className="signin-link">
+                <Link to={routeNames.Login} className="footer-link">
                   Sign in
                   <CaretRightOutlined />
                 </Link>
               </div>
               <br />
-              <div className="policy">
-                By creating an account or logging in, you agree to Amazon’s
-                <Link className="signin-link" to={routeNames.Condition}>
-                  {" "}
-                  Conditions of Use{" "}
-                </Link>{" "}
-                and
-                <Link className="signin-link" to={routeNames.Privacy}>
-                  {" "}
-                  Privacy Policy
-                </Link>
-                .
-              </div>
+              <AuthFooter footerLabel="By creating an account or logging in, you agree to Amazon’s" />
             </div>
           </div>
           <FooterLink />

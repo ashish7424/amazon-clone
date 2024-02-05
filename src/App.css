@@ -1,16 +1,26 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
 }
 .flex-justify-center {
   display: flex;
   justify-content: center;
 }
-
-body {
-  margin: 0;
-  padding: 0;
-
-  /* @media (max-width: 768px) {
-    width: 800px;
-  } */
+.flex-align-center{
+  display: flex;
+  align-items: center;
+}
+.flex-end{
+  display: flex;
+  justify-content: flex-end;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.gap-10{
+  gap: 10px;
+}
+.gap-20{
+  gap: 20px;
 }

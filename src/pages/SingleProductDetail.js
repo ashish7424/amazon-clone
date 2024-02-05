@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Col, Image, Rate, Typography } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { routeNames } from "constants/pageRoutes.constants";
-import { addCart } from "store/CartSlice/CartSlice";
+import { addCart, setSingleDetails } from "store/CartSlice/CartSlice";
 
 const { Text } = Typography;
 
@@ -17,6 +17,11 @@ const SingleProductDetail = () => {
     dispatch(addCart(productDetail));
   };
 
+  const handleNavigateHome = () => {
+    navigate(routeNames.Home);
+    dispatch(setSingleDetails(null));
+  };
+
   return (
     <div className="single-product-main ">
       <div>
@@ -24,15 +29,13 @@ const SingleProductDetail = () => {
           shape="circle"
           type="text"
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate(routeNames.Home)}
+          onClick={handleNavigateHome}
         />
       </div>
-      <div className="product-title-main">
-        <Text className="product-title">{productDetail.title}</Text>
-      </div>
+
       {productDetail && (
         <div className="single-product">
-          <div>
+          <div className="product-image-main">
             <Image
               src={productDetail.image}
               alt={productDetail.category}
@@ -43,8 +46,13 @@ const SingleProductDetail = () => {
           </div>
           <div className="single-details">
             <Col>
+              <Text className="product-title">{productDetail.title}</Text>
+            </Col>
+            <Col>
               <Text className="card-span">Category : </Text>
-              <Text className="card-detail">{productDetail.category}</Text>
+              <Text className="card-detail cat-transform">
+                {productDetail.category}
+              </Text>
             </Col>
             <Col>
               <Text className="card-span">Description : </Text>
@@ -52,9 +60,7 @@ const SingleProductDetail = () => {
             </Col>
             <Col>
               <Text className="card-span">Price : </Text>
-              <Text className="card-detail">
-                {productDetail.price || "0"} ₹
-              </Text>
+              <Text className="card-detail">{productDetail.price} ₹</Text>
             </Col>
             <Col>
               <Rate
