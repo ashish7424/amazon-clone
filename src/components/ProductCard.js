@@ -5,7 +5,7 @@ const { Text } = Typography;
 
 const ProductCard = ({ item, getSingleProductDetail, handleAddToCart }) => {
   return (
-    <Col key={item.id} xl={6} xxl={6} sm={12} lg={8} xs={24} md={12}>
+    <Col xl={6} xxl={6} sm={12} lg={8} xs={24} md={12}>
       <Card
         hoverable
         title={item.title}

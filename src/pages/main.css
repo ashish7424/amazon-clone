@@ -11,7 +11,7 @@
 .outlet-main-div {
   height: calc(100vh - 70px);
   overflow: auto;
-  background-color: #eee;
+  background-color: #f6f9fc;
   &::-webkit-scrollbar {
     width: 5px;
     background-color: var(--white);
@@ -80,15 +80,6 @@
   width: 800px;
   font-size: 38px;
   font-weight: 400;
-}
-.bill-total {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.order-total {
-  font-size: 20px;
-  font-weight: bolder;
 }
 .order-btn-div {
   display: flex;
@@ -409,10 +400,43 @@
     width: 250px;
   }
 }
-.product-filter {
-  display: flex;
-  justify-content: space-between;
+.category-title {
+  font-size: 20px;
+  color: var(--primary);
+  font-weight: 700;
 }
+.category-container {
+  height: 40px;
+}
+.category-group {
+  height: inherit;
+}
+.btn-all {
+  height: inherit;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.12px;
+  border-start-start-radius: 4px !important;
+  border-start-end-radius: 4px !important;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #fafafa;
+  color: #95969d;
+}
+.btn-all:hover {
+  color: unset !important;
+}
+.active-btn {
+  border-radius: 4px 4px 0 0;
+  background-color: rgba(110, 59, 209, 0.15);
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+.active-btn:hover {
+  border-bottom: 3px solid var(--primary) !important;
+}
+
 .cart-price {
   font-size: 20px;
   font-weight: 800;
