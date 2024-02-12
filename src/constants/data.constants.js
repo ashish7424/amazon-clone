@@ -3,10 +3,6 @@ import {
   InstagramOutlined,
   WhatsAppOutlined,
 } from "@ant-design/icons";
-import sofaSlide from "assets/png/hero-img.png";
-import watchSlide from "assets/png/watch-07.png";
-import phone08 from "assets/png/phone-08.png";
-import wireless01 from "assets/png/wireless-01.png";
 
 export const footerData = [
   {
@@ -68,58 +64,4 @@ export const movieCategories = [
   "Romance",
   "Science-Fiction",
   "Thriller",
-];
-
-export const serviceData = [
-  {
-    icon: <ion-icon name="car"></ion-icon>,
-    title: "Free Shipping",
-    subtitle: "Lorem ipsum dolor sit amet.",
-    bg: "#fdefe6",
-  },
-  {
-    icon: <ion-icon name="card"></ion-icon>,
-    title: "Safe Payment",
-    subtitle: "Lorem ipsum dolor sit amet.",
-    bg: "#ceebe9",
-  },
-  {
-    icon: <ion-icon name="shield-half-outline"></ion-icon>,
-    title: "Secure Payment",
-    subtitle: "Lorem ipsum dolor sit amet.",
-    bg: "#e2f2b2",
-  },
-  {
-    icon: <ion-icon name="headset"></ion-icon>,
-    title: " Back Guarantee",
-    subtitle: "Lorem ipsum dolor sit amet.",
-    bg: "#d6e5fb",
-  },
-];
-
-export const SliderData = [
-  {
-      id: 1,
-      title: "50% Off For Your First Shopping",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-      cover: sofaSlide,
-  },
-  {
-      id: 2,
-      title: "50% Off For Your First Shopping",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-      cover: phone08,
-  },
-  {
-      id: 3,
-      title: "50% Off For Your First Shopping",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-      cover: wireless01,
-  },
-  {
-      id: 4,
-      title: "50% Off For Your First Shopping",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-      cover: watchSlide,
-  },
 ];

@@ -1,43 +1,72 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { filter } from "lodash";
-import { Button, Input, Row, Typography, message } from "antd";
-import { LoadingOutlined, SearchOutlined } from "@ant-design/icons";
+import { filter, isEmpty } from "lodash";
+import { Button, Dropdown, Input, Row, message } from "antd";
+import {
+  DownOutlined,
+  LoadingOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import ProductCard from "components/ProductCard";
-// import ProductSlider from "components/ProductSlider";
 import { routeNames } from "constants/pageRoutes.constants";
 import { addCart, setSingleDetails } from "store/CartSlice/CartSlice";
 import { getProducts, getProductsByCategories } from "store/CartSlice/actions";
 import { shortLabel } from "utils/utils";
 
-const { Text } = Typography;
-
 function Products() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [data, setData] = useState("");
   const [products, setProducts] = useState([]);
   const [filterText, setFilterText] = useState("");
   const isLoading = useSelector((state) => state.Cart.isLoading);
   const Products = useSelector((state) => state.Cart.products);
 
+  const items = [
+    {
+      label: "All",
+      key: "all",
+    },
+    {
+      label: "Electronics",
+      key: "electronics",
+    },
+    {
+      label: "Jewelery",
+      key: "jewelery",
+    },
+    {
+      label: "Men's Clothing",
+      key: "men's clothing",
+    },
+    {
+      label: "Women's Clothing",
+      key: "women's clothing",
+    },
+  ];
+
   useEffect(() => {
-    if (selectedCategory === "all") {
-      dispatch(getProducts());
-    } else {
-      dispatch(getProductsByCategories(selectedCategory));
-    }
+    dispatch(getProducts());
     // eslint-disable-next-line
-  }, [selectedCategory]);
+  }, []);
 
   useEffect(() => {
     setProducts(Products);
   }, [Products]);
 
+  const onClick = ({ key }) => {
+    setData(key);
+    if (key === "all") {
+      dispatch(getProducts());
+    } else {
+      dispatch(getProductsByCategories(key));
+    }
+  };
+
   const handleAddToCart = (item) => {
     dispatch(addCart(item));
-    message.success("Added to Cart");
+    message.success("Added to Cart")
   };
 
   const SearchProductByCategory = (e) => {
@@ -58,9 +87,13 @@ function Products() {
 
   return (
     <div className="product-main">
-      {/* <ProductSlider/> */}
-      <div className="flex-between">
-        <Text className="category-title">PRODUCT OVERVIEW :</Text>
+      <div className="product-filter">
+        <Dropdown menu={{ items, onClick }} trigger={["click"]}>
+          <Button className="categories-btn">
+            {data || "Categories"}
+            <DownOutlined />
+          </Button>
+        </Dropdown>
         <Input
           placeholder="Search Product..."
           className="search-input"
@@ -69,57 +102,16 @@ function Products() {
           prefix={<SearchOutlined />}
         />
       </div>
-      <div className="category-container">
-        <Button.Group className="category-group">
-          <Button
-            className={
-              selectedCategory === "all" ? "active-btn btn-all" : "btn-all"
-            }
-            onClick={() => setSelectedCategory("all")}
-          >
-            All Products
-          </Button>
-          <Button
-            className={
-              selectedCategory === "men's clothing"
-                ? "active-btn btn-all"
-                : "btn-all"
-            }
-            onClick={() => setSelectedCategory("men's clothing")}
-          >
-            Men
-          </Button>
-          <Button
-            className={
-              selectedCategory === "women's clothing"
-                ? "active-btn btn-all"
-                : "btn-all"
-            }
-            onClick={() => setSelectedCategory("women's clothing")}
-          >
-            Women
-          </Button>
-          <Button
-            className={
-              selectedCategory === "electronics"
-                ? "active-btn btn-all"
-                : "btn-all"
-            }
-            onClick={() => setSelectedCategory("electronics")}
-          >
-            Electronics
-          </Button>
-          <Button
-            className={
-              selectedCategory === "jewelery" ? "active-btn btn-all" : "btn-all"
-            }
-            onClick={() => setSelectedCategory("jewelery")}
-          >
-            Jewelery
-          </Button>
-        </Button.Group>
-        <div style={{ border: "1px solid #232f3e" }} />
-      </div>
+
+      {data !== "all" && !isEmpty(data) && (
+        <div>
+          <label className="dropdown-key">{data}</label>
+          <p className="result">
+            {`Showing ${products?.length} Results :(${data})`}
+          </p>
+        </div>
+      )}
+
       {isLoading ? (
         <div className="spinner">
           <LoadingOutlined style={{ color: "#232f3e" }} />
@@ -130,7 +122,6 @@ function Products() {
             productDataFilter.map((item) => {
               return (
                 <ProductCard
-                  key={item.id}
                   item={item}
                   getSingleProductDetail={getSingleProductDetail}
                   handleAddToCart={handleAddToCart}
