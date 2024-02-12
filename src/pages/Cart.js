@@ -6,6 +6,7 @@ import { Divider, message } from "antd";
 import EmptyCart from "components/EmptyCart";
 import CartDetails from "components/CartDetails";
 import CheckoutDetails from "components/CheckoutDetails";
+import Services from "components/Services";
 import { routeNames } from "constants/pageRoutes.constants";
 import {
   decrementQty,
@@ -78,6 +79,7 @@ function Cart() {
                 />
               );
             })}
+            {addToCart.length > 0 && <Services />}
             <Divider className="cart-divider" />
             <CheckoutDetails
               counter={counter}
